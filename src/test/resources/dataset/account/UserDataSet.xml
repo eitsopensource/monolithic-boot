@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<public.user
+		id="9999"
+		created="2015-03-30 00:00:00"
+		enabled="true"
+		email="admin@email.com"
+		password="d1bd2f08fead38a982aed9d4ca060152400b1b8f"
+		name="Administrator"
+		role="0"/>
+	<public.user
+		id="1000"
+		created="2015-03-30 00:00:00"
+		enabled="false"
+		email="user001@testing.com"
+		password="d1bd2f08fead38a982aed9d4ca060152400b1b8f"
+		name="User 001"
+		role="0"/>
+	<public.user
+		id="1001"
+		created="2015-03-30 00:00:00"
+		enabled="false"
+		email="user002@testing.com"
+		password="d1bd2f08fead38a982aed9d4ca060152400b1b8f"
+		name="User 002"
+		role="1"/>
+	<public.user
+		id="1002"
+		created="2015-03-30 00:00:00"
+		enabled="false"
+		email="xova@testing.com"
+		password="d1bd2f08fead38a982aed9d4ca060152400b1b8f"
+		name="Xóva :x"
+		role="2"/>
+</dataset>

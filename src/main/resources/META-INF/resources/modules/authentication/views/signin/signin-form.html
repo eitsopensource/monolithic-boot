@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" 
+	xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+	<form name="form" layout="column" layout-align="center center">
+			
+		<label class="md-subhead">{{::'userAuthentication' | translate}}</label>
+      	
+		<md-input-container width="300">
+          	<label>{{::'email' | translate}}</label>
+          	<input type="email" name="email" ng-model="model.entity.email" required>
+          	<ng-messages for="form.email.$error" role="alert">
+				<ng-message when="required">{{::'email.required' | translate}}</ng-message>
+				<ng-message when="email">{{::'email.invalid' | translate}}</ng-message>
+			</ng-messages>
+       	</md-input-container>
+       	
+	  	<md-input-container width="300">
+          	<label>{{::'password' | translate}}</label>
+          	<input type="password" name="password" ng-model="model.entity.password" required>
+          	<ng-messages for="form.password.$error" role="alert">
+				<ng-message when="required">{{::'password.required' | translate}}</ng-message>
+			</ng-messages>
+       	</md-input-container>
+       	
+       	<md-button class="md-raised md-primary" ng-click="signinHandler()">Entrar</md-button>
+	</form>
+
+</html>

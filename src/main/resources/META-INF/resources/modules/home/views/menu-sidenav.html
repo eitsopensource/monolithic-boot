@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" 
+	xmlns:th="http://www.thymeleaf.org" lang="pt">
+	
+	<md-sidenav md-component-id="menuSideNav"
+		class="md-sidenav-left md-whiteframe-z2">
+		
+		<md-toolbar class="md-tall" 
+			style="background-image: url('./static/images/menu-background.png'); background-repeat: round;">
+			<img src="./static/images/logo.png" width="160px" height="100px" alt="Logo"/>
+		</md-toolbar>
+
+		<md-content layout-padding layout="column" layout="left left" 
+			style="height: 80%; padding-top: 20px;">
+		
+			<label class="md-body-2">MENU</label>
+			
+			<md-button style="text-align: left;"
+				ng-click="toggleMenuSideNavHandler();">
+				<md-icon class="zmdi zmdi-accounts zmdi-hc-fw zmdi-hc-2x"></md-icon>
+				Usuários
+			</md-button>
+			
+			<md-divider></md-divider>
+			
+			<span flex></span>
+			
+			<md-divider></md-divider>
+			<label class="md-caption" style="margin-top: 20px;">
+				Copyright © eits.com.br - Todos os direitos reservados.
+			</label>
+		</md-content>
+  	</md-sidenav>
+</html>

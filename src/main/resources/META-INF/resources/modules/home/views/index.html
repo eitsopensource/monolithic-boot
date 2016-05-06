@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" 
+	xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+
+		<title th:text="#{welcome}"></title>
+		
+		<!-- Styles -->
+		<style th:replace="modules/default-styles"></style>
+		
+		<!-- Scripts -->
+		<script th:replace="modules/default-scripts"></script>
+		
+		<!-- Module --> 
+		<script type="text/javascript" th:src="@{/modules/home/home-module.js}"></script>
+		
+		<!-- Controllers -->
+		<script type="text/javascript" th:src="@{/modules/home/controllers/home-controller.js}"></script>
+	</head>
+		
+	<body ng-controller="HomeController">
+		<ng-include src="'./modules/home/views/menu-sidenav.html'"></ng-include>
+
+		<!-- Header -->
+  		<md-toolbar md-scroll-shrink="">
+    		<eits-hbox class="md-toolbar-tools" padding-left="20" padding-right="20" vertical-align="center">
+    			<md-button class="md-icon-button" aria-label="Menu" 
+    				ng-click="toggleMenuSideNavHandler($event)">
+        			<md-icon class="zmdi zmdi-menu zmdi-hc-2x"></md-icon>
+      			</md-button>
+      			
+      			<img width="150" th:src="@{/static/images/logo-large.png}" alt="Logo"/>
+				
+				<span flex=""></span>
+				
+				<label class="md-body-1" th:text="${#authentication.name}"></label>
+				
+				<md-menu id="menu">
+					<div>
+	      				<md-button class="md-icon-button" aria-label="Options" ng-click="$mdOpenMenu()">
+	        				<md-icon md-menu-origin="" class="zmdi zmdi-more-vert zmdi-hc-2x"></md-icon>
+	      				</md-button>
+					</div>
+					
+					<md-menu-content>
+ 						<md-menu-item>
+				          	<md-button>
+				            	<md-icon class="zmdi zmdi-account zmdi-hc-lg"></md-icon>
+				            	Perfil
+				          	</md-button>
+				        </md-menu-item>
+ 						<md-menu-item>
+				          	<md-button>
+				            	<md-icon class="zmdi zmdi-settings zmdi-hc-lg"></md-icon>
+				            	Configurações
+				          	</md-button>
+				        </md-menu-item>
+				        
+				        <md-menu-divider></md-menu-divider>
+				        
+				        <md-menu-item>
+				          	<md-button onclick="window.location = './logout'">
+				            	<md-icon class="zmdi zmdi-sign-in zmdi-hc-lg"></md-icon>
+				            	Sair
+				          	</md-button>
+				        </md-menu-item>
+					</md-menu-content>
+    			</md-menu>
+    		</eits-hbox>
+
+    		<md-progress-linear md-mode="indeterminate" ng-if="loading" 
+    			style="position: fixed; top: 59px;">
+    		</md-progress-linear>
+  		</md-toolbar>
+  		
+  		<md-content style="width: 100%; height: calc(100% - 64px);" ui-view="">
+			<md-progress-circular md-mode="indeterminate" style="left: 50%; top: 50%;">
+			</md-progress-circular>
+  		</md-content>
+	</body>
+</html>

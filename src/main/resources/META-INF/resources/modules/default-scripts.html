@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<!-- JQuery -->
+<script type="text/javascript" src="./webjars/jquery/jquery.min.js"></script>
+
+<!-- AngularJS -->
+<script type="text/javascript" src="./webjars/angular/angular.min.js"></script>
+<script type="text/javascript" src="./webjars/angular-i18n/angular-locale_pt-br.js"></script>
+<script type="text/javascript" src="./webjars/angular-animate/angular-animate.min.js"></script>
+<script type="text/javascript" src="./webjars/angular-aria/angular-aria.min.js"></script>
+<script type="text/javascript" src="./webjars/angular-cookies/angular-cookies.min.js"></script>
+<script type="text/javascript" src="./webjars/angular-messages/angular-messages.min.js"></script>
+<script type="text/javascript" src="./webjars/angular-sanitize/angular-sanitize.min.js"></script>
+
+<!-- Angular Modules -->
+<script type="text/javascript" src="./webjars/angular-ui-router/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="./webjars/angular-material-data-table/dist/md-data-table.min.js"></script>
+<script type="text/javascript" src="./webjars/angular-material/angular-material.min.js"></script>
+
+<!-- EITS -->
+<script type="text/javascript" src="./webjars/eits-ng/eits-ng.js"></script>
+<script type="text/javascript" src="./webjars/eits-md/eits-md.js"></script>
+
+<!-- DWR -->
+<script type="text/javascript" src="./broker/engine.js"></script>
+<script type="text/javascript" src="./broker/util.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+	//Remove qualquer plugin adicional do browser
+	$(document).ready(function() {
+		setTimeout(function(){
+			$("object").remove();
+		}, 1000);
+  	});
+
+	//DWR Defaults
+	dwr.engine.setTextHtmlHandler(function() {
+		window.alert(/*[[#{sessionExpired}]]*/);
+		document.location = './';
+	});
+	
+	dwr.engine.setPreHook( function() {
+		angular.element("body").scope().loading = true;
+	});
+
+	dwr.engine.setPostHook(function() {
+		angular.element("body").scope().loading = false;
+	});
+</script>

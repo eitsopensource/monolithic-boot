@@ -1,0 +1,23 @@
+{
+    "name" : "files-repository",
+    "jndiName": "",
+    "workspaces" : {
+        "default" : "default",
+        "allowCreation" : true
+    },
+    "security" : {
+        "anonymous" : {
+            "roles" : ["readonly","readwrite","admin"],
+            "useOnFailedLogin" : false
+        }
+    },
+    "storage" : {
+        "cacheConfiguration" : "config/jcr-infinispan-config.xml",
+        "cacheName" : "files-repository-cache",
+        "binaryStorage" : {
+            "type" : "file",
+            "directory": "@mvn.jcr.files@",
+            "minimumBinarySizeInBytes" : 40
+        }
+    }
+}
