@@ -4,8 +4,7 @@ import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestExecutionListeners.MergeMode;
@@ -26,13 +25,12 @@ import br.com.eits.common.infrastructure.dbunit.TransactionDbUnitTestExecutionLi
  */
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {TestApplication.class, Application.class})
+@SpringBootTest(classes = {TestApplication.class, Application.class})
 @TestExecutionListeners(mergeMode=MergeMode.MERGE_WITH_DEFAULTS, 
 	listeners={
 		TransactionDbUnitTestExecutionListener.class,
 	}
 )
-@WebIntegrationTest(randomPort=true)
 @DatabaseSetup(value="/dataset/AbstractDataSet.xml", type=DatabaseOperation.TRUNCATE_TABLE)
 @DbUnitConfiguration( databaseOperationLookup=DBUnitOperationLookup.class, databaseConnection="dbUnitDatabaseDataSourceConnectionFactoryBean")
 public abstract class AbstractIntegrationTests

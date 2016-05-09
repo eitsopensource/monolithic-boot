@@ -117,6 +117,21 @@ public class AccountServiceIntegrationTests extends AbstractIntegrationTests
 	@DatabaseSetup(type = DatabaseOperation.INSERT, value = {
 		"/dataset/account/UserDataSet.xml",
 	})
+	public void listUsersByFiltersMustReturn1()
+	{
+		final Page<User> users = this.accountService.listUsersByFilters( "xó", null );
+		
+		Assert.assertNotNull( users );
+		Assert.assertEquals( 1, users.getTotalElements());
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	@DatabaseSetup(type = DatabaseOperation.INSERT, value = {
+		"/dataset/account/UserDataSet.xml",
+	})
 	public void listUsersByFiltersMustReturnAll()
 	{
 		final Page<User> users = this.accountService.listUsersByFilters( null, null );
