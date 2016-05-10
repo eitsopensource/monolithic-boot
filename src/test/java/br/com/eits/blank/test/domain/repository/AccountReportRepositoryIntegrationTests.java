@@ -50,7 +50,7 @@ public class AccountReportRepositoryIntegrationTests extends AbstractIntegration
 		final ByteArrayOutputStream reportOutputStream = this.accountReportRepository.generateByFilters( null, ReportFormat.PDF );
 		Assert.assertNotNull( reportOutputStream );
 		
-		final FileTransfer fileTransfer = new FileTransfer("users-by-filter.pdf", MimeType.PDF.value, reportOutputStream.toByteArray());
+		final FileTransfer fileTransfer = new FileTransfer( IAccountReportRepository.USERS_BY_FILTER_REPORT, MimeType.PDF.value, reportOutputStream.toByteArray());
 		Assert.assertNotNull( fileTransfer );
 		Assert.assertEquals( 2087, fileTransfer.getSize() );
 	}

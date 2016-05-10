@@ -10,6 +10,11 @@ import br.com.eits.common.infrastructure.report.ReportFormat;
  */
 public interface IAccountReportRepository
 {
+	/**
+	 * 
+	 */
+	public static final String USERS_BY_FILTER_REPORT = "users-by-filter.pdf";
+	
     /*-------------------------------------------------------------------
      *                          BEHAVIORS
      *-------------------------------------------------------------------*/
