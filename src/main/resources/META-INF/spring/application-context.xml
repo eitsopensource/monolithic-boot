@@ -97,4 +97,11 @@
     </bean>
 	<bean id="modeShapeSessionFactory" 
 		class="br.com.eits.common.infrastructure.jcr.modeshape.ModeShapeSessionFactory"/>
+		
+	<!--
+		REPORTS
+		With JasperReport
+	-->
+	<bean id="reportManager"
+		class="br.com.eits.common.infrastructure.report.jasper.JasperReportManager"/>
 </beans>
