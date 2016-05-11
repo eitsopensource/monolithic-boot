@@ -4,6 +4,9 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="eits-java-common-1.0.8-RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/eits-java-common/eits-java-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="blank"/>
         <property name="java-output-path" value="/project-blank/target/classes"/>
     </wb-module>
