@@ -40,7 +40,7 @@
 	
 	<!-- DWR will scan the classpath and search classes containing @RemoteProxy or @RemoteMethod annotations. 
 		This will register the beans and Creator proxies for these classes.-->
- 	<dwr:annotation-scan base-package="br.com.eits.blank.domain.entity"
+ 	<dwr:annotation-scan base-package="br.com.eits.boot.domain.entity"
  		scanDataTransferObject="true" scanRemoteProxy="false"/>
 
  	<!-- DWR - This is required if you want to configure any beans not managed by Spring.-->
@@ -56,7 +56,7 @@
 	
 	<!-- Exception Handler --> 
 	<bean id="exceptionHandlerAspect" 
-		class="br.com.eits.blank.application.aspect.ExceptionHandlerAspect"/>
+		class="br.com.eits.boot.application.aspect.ExceptionHandlerAspect"/>
 		
  	<!--
 		SECURITY  
