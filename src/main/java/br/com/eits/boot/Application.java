@@ -1,34 +1,32 @@
 package br.com.eits.boot;
 
-import java.util.Locale;
+import java.net.MalformedURLException;
 import java.util.ResourceBundle;
 
-import org.directwebremoting.spring.DwrSpringServlet;
+import javax.jcr.Repository;
+import javax.validation.Validator;
+
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.config.ConfigFileApplicationListener;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import br.com.eits.boot.application.security.AuthenticationFailureHandler;
-import br.com.eits.boot.application.security.AuthenticationSuccessHandler;
 import br.com.eits.common.application.i18n.ResourceBundleMessageSource;
+import br.com.eits.common.infrastructure.jcr.IMetaFileRepository;
+import br.com.eits.common.infrastructure.jcr.modeshape.MetaFileRepository;
+import br.com.eits.common.infrastructure.jcr.modeshape.ModeShapeRepositoryFactory;
+import br.com.eits.common.infrastructure.jcr.modeshape.ModeShapeSessionFactory;
+import br.com.eits.common.infrastructure.report.IReportManager;
+import br.com.eits.common.infrastructure.report.jasper.JasperReportManager;
 
 /**
  * 
@@ -36,7 +34,6 @@ import br.com.eits.common.application.i18n.ResourceBundleMessageSource;
  */
 @EnableAsync
 @SpringBootApplication
-@ImportResource("classpath:/META-INF/spring/application-context.xml")
 public class Application extends SpringBootServletInitializer
 {
 	/**
@@ -57,7 +54,7 @@ public class Application extends SpringBootServletInitializer
 	public static final String AUDIT_SCHEMA = "auditing";
 	
 	/*-------------------------------------------------------------------
-	 * 		 					CONSTRUCTORS
+	 * 		 					OVERRIDES
 	 *-------------------------------------------------------------------*/
 	/**
 	 * 
@@ -76,13 +73,10 @@ public class Application extends SpringBootServletInitializer
 		}
 		return builder;
 	}
-
+	
 	/*-------------------------------------------------------------------
-	 * 		 					CONFIGURATIONS
+	 * 		 						BEANS
 	 *-------------------------------------------------------------------*/
-	//---------
-	// Beans
-	//---------
 	/**
 	 * 
 	 * @return
@@ -96,117 +90,70 @@ public class Application extends SpringBootServletInitializer
         messageSource.setBasenames( "classpath:i18n/exceptions", "classpath:i18n/labels", "classpath:i18n/messages" );
         return messageSource;
     }
+    
+    /**
+     * 
+     * @return
+     */
+    @Bean
+    public Validator validator() 
+    {
+    	return new LocalValidatorFactoryBean();
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    @Bean
+    public IReportManager reportManager() 
+    {
+    	return new JasperReportManager();
+    }
+    
+	//---------
+	// JCR - JAVA CONTENT REPOSITORY
+    // With Modeshape
+	//---------
+    /**
+	 * @return
+	 */
+    @Bean
+    public IMetaFileRepository metaFileRepository() 
+    {
+        return new MetaFileRepository();
+    }
+    
+    /**
+     * 
+     * @param environment
+     * @return
+     * @throws MalformedURLException 
+     */
+    @Bean
+    public FactoryBean<Repository> modeShapeRepositoryFactory( @Value("${jcr.configuration-path}") String jcrConfigurationPath ) throws MalformedURLException 
+    {
+    	final ModeShapeRepositoryFactory modeShapeRepositoryFactory = new ModeShapeRepositoryFactory();
+    	
+    	if ( jcrConfigurationPath.contains( "classpath:" ) )
+    	{
+    		jcrConfigurationPath = jcrConfigurationPath.split("classpath:")[1];
+    		modeShapeRepositoryFactory.setConfiguration( new ClassPathResource(jcrConfigurationPath) );
+    	}
+    	else
+    	{
+    		modeShapeRepositoryFactory.setConfiguration( new UrlResource( jcrConfigurationPath ) );
+    	}
+    	return modeShapeRepositoryFactory;
+    }
 
-	//---------
-	// Security Config
-	//---------
-	@Configuration
-	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-	@EnableGlobalMethodSecurity(prePostEnabled = true)
-	protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter
-	{
-		/**
-		 * 
-		 * @return
-		 */
-	    @Bean
-	    public AuthenticationFailureHandler authenticationFailureHandler() 
-	    {
-	        return new AuthenticationFailureHandler();
-	    }
-	    
-	    /**
-	     * 
-	     * @return
-	     */
-	    @Bean
-	    public AuthenticationSuccessHandler authenticationSuccessHandler() 
-	    {
-	    	return new AuthenticationSuccessHandler();
-	    }
-	    
-		/**
-    	 * 
-    	 */
-		@Override
-		protected void configure( HttpSecurity httpSecurity ) throws Exception
-		{
-			httpSecurity.csrf().disable();
-			httpSecurity.headers().frameOptions().disable();
-			
-			httpSecurity
-				.authorizeRequests()
-					.anyRequest()
-						.authenticated()
-						.and()
-							.formLogin()
-								.usernameParameter( "email" )
-								.loginPage( "/authentication" )
-								.loginProcessingUrl( "/authenticate" )
-								.failureHandler( this.authenticationFailureHandler() )
-								.successHandler( this.authenticationSuccessHandler() )
-							.permitAll()
-						.and()
-							.logout()
-								.logoutUrl( "/logout" );
-		}
-	}
-	
-	//---------
-	// Web Config
-	//---------
-	@Configuration
-	protected static class WebConfiguration extends WebMvcConfigurerAdapter
-	{
-		/**
-		 * 
-		 * @return
-		 */
-		@Bean
-		public ServletRegistrationBean dwrSpringServletRegistration()
-		{
-			final ServletRegistrationBean registration = new ServletRegistrationBean( new DwrSpringServlet(), "/broker/*" );
-			registration.addInitParameter( "debug", "true" );
-			registration.addInitParameter( "scriptCompressed", "true" );
-			registration.setName( "dwrSpringServlet" );
-			return registration;
-		}
-		
-		//-----------
-		// Locale
-		//-----------
-	    /**
-	     * 
-	     * @return
-	     */
-		@Bean
-		public LocaleResolver localeResolver() 
-		{
-			final CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-			localeResolver.setDefaultLocale( new Locale( "pt", "BR" ) );
-			localeResolver.setCookieMaxAge( 604800 ); //1 month
-		    return localeResolver;
-		}
-		
-		/**
-		 * 
-		 * @return
-		 */
-		@Bean
-		public LocaleChangeInterceptor localeChangeInterceptor() 
-		{
-			final LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-			localeChangeInterceptor.setParamName("lang");
-	        return localeChangeInterceptor;
-	    }
-		
-		/**
-		 * 
-		 */
-	    @Override
-	    public void addInterceptors( InterceptorRegistry registry ) 
-	    {
-	        registry.addInterceptor( this.localeChangeInterceptor() );
-	    }
-	}
+    /**
+     * 
+     * @return
+     */
+    @Bean
+    public ModeShapeSessionFactory modeShapeSessionFactory() 
+    {
+    	return new ModeShapeSessionFactory();
+    }
 }

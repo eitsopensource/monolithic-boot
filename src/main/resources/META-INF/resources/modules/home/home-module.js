@@ -33,7 +33,7 @@
 	 * 
 	 */
 	module.run( function( $rootScope, $window, $state, $stateParams ) {
-		//$rootScope.$usuario 	= $window.usuario;
+		$rootScope.$user 		= $window.user;
 		$rootScope.$state 		= $state;
 		$rootScope.$stateParams = $stateParams;
 	});

@@ -1,5 +1,8 @@
 package br.com.eits.boot.domain.entity.account;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.directwebremoting.annotations.DataTransferObject;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -30,5 +33,24 @@ public enum UserRole implements GrantedAuthority
 	public String getAuthority()
 	{
 		return this.name();
+	}
+
+	/**
+	 * @return
+	 */
+	public Set<GrantedAuthority> getAuthorities()
+	{
+		final Set<GrantedAuthority> authorities = new HashSet<>();
+
+		authorities.add( this );
+
+		if ( this.equals( UserRole.ADMINISTRATOR ) )
+		{
+			authorities.add( UserRole.MANAGER );
+		}
+
+		authorities.add( UserRole.USER );
+
+		return authorities;
 	}
 }

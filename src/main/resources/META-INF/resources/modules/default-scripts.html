@@ -26,6 +26,9 @@
 <script type="text/javascript" src="./broker/util.js"></script>
 
 <script type="text/javascript" th:inline="javascript">
+
+	window.user = /*[[${#authentication.principal}]]*/ null;
+
 	//Remove qualquer plugin adicional do browser
 	$(document).ready(function() {
 		setTimeout(function(){

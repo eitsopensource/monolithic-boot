@@ -17,16 +17,15 @@
     <converter id="map" class="org.directwebremoting.convert.MapConverter"/>
     <converter id="collection" class="org.directwebremoting.convert.CollectionConverter"/>
     <converter id="date" class="org.directwebremoting.convert.DateConverter"/>
-    <converter id="jodaLocalDateTime" class="org.directwebremoting.convert.LocalDateTimeConverter"/>
     <converter id="dom" class="org.directwebremoting.convert.DOMConverter"/>
     <converter id="dom4j" class="org.directwebremoting.convert.DOM4JConverter"/>
     <converter id="jdom" class="org.directwebremoting.convert.JDOMConverter"/>
     <converter id="xom" class="org.directwebremoting.convert.XOMConverter"/>
     <converter id="servlet" class="org.directwebremoting.convert.ServletConverter"/>
-    <converter id="bean" class="org.directwebremoting.convert.BeanConverter"/>
     <converter id="object" class="org.directwebremoting.convert.ObjectConverter"/>
-    <converter id="hibernate3" class="org.directwebremoting.hibernate.H3BeanConverter"/>
-    <converter id="hibernate4" class="org.directwebremoting.hibernate.H4BeanConverter"/>
+    <!-- 
+    <converter id="bean" class="org.directwebremoting.convert.BeanConverter"/>
+     -->
     <converter id="url" class="org.directwebremoting.convert.URLConverter"/>
     <converter id="exception" class="org.directwebremoting.convert.ExceptionConverter"/>
     <converter id="miniException" class="org.directwebremoting.convert.MinimalistExceptionConverter"/>
@@ -39,6 +38,11 @@
     <converter id="proxyInterface" class="org.directwebremoting.convert.ProxyInterfaceConverter"/>
     <converter id="locale" class="org.directwebremoting.convert.LocaleConverter"/>
     <converter id="currency" class="org.directwebremoting.convert.CurrencyConverter"/>
+    
+    <!-- customs -->
+    <converter id="bean" class="br.com.eits.common.application.dwr.converter.HibernateBeanConverter"/>
+    <converter id="localDateTime" class="br.com.eits.common.application.dwr.converter.LocalDateTimeConverter"/>
+    
   </init>
 
   <allow>
@@ -154,7 +158,6 @@
 		<param name="constructor" value="int page, int size, org.springframework.data.domain.Sort sort"/>
 	</convert>
 	<convert converter="bean" match="org.springframework.data.domain.Sort" javascript="Sort">
-		<param name="force" value="true"/>
 		<param name="constructor" value="java.util.List orders"/>
 	</convert>
 	<convert converter="object" match="org.springframework.data.domain.Sort$Order" javascript="Order">
@@ -162,11 +165,12 @@
 		<param name="constructor" value="org.springframework.data.domain.Sort$Direction direction, String property, org.springframework.data.domain.Sort$NullHandling nullHandlingHint"/>
 	</convert>
 	<convert converter="bean" match="org.springframework.data.domain.PageImpl" javascript="PageImpl">
-		<param name="force" value="true"/>
 	</convert>
 	<convert converter="enum" match="org.springframework.data.domain.Sort$Direction"/>
 	<convert converter="enum" match="org.springframework.data.domain.Sort$NullHandling"/>
-
+	
+	<!-- Java Time -->
+	<convert converter="enum" match="java.time.temporal.ChronoUnit"/>
 
     <create creator="new" javascript="__System" scope="application">
       <!-- ExportUtil.isSystemClass assumes the name __System -->

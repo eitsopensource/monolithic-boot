@@ -104,38 +104,6 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	{
 		super( id );
 	}
-	
-	/**
-	 * 
-	 * @param id
-	 * @param name
-	 * @param email
-	 * @param enabled
-	 */
-	public User( Long id, String name, String email, Boolean enabled )
-	{
-		super( id );
-		this.email = email;
-		this.name = name;
-		this.enabled = enabled;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 * @param name
-	 * @param email
-	 * @param enabled
-	 * @param role
-	 */
-	public User( Long id, String name, String email, Boolean enabled, UserRole role )
-	{
-		super( id );
-		this.email = email;
-		this.name = name;
-		this.enabled = enabled;
-		this.role = role;
-	}
 
 	/**
 	 * 
@@ -168,19 +136,12 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	{
 		final Set<GrantedAuthority> authorities = new HashSet<>();
 
-		if ( role == null )
+		if ( this.role == null )
 		{
 			return null;
 		}
 		
-		authorities.add( role );
-
-		if ( role.equals( UserRole.ADMINISTRATOR ) )
-		{
-			authorities.add( UserRole.MANAGER );
-		}
-
-		authorities.add( UserRole.USER );
+		authorities.addAll( this.role.getAuthorities() );
 
 		return authorities;
 	}

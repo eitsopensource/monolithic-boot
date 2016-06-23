@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -26,6 +27,7 @@ import org.springframework.security.access.AccessDeniedException;
  * @category
  */
 @Aspect
+@Component
 public class ExceptionHandlerAspect
 {
 	/**

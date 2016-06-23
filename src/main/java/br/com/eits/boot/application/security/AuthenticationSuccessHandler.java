@@ -1,6 +1,7 @@
 package br.com.eits.boot.application.security;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
-import br.com.eits.boot.domain.service.AccountService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.eits.boot.domain.entity.account.User;
+import br.com.eits.boot.domain.repository.account.IUserRepository;
 
 /**
  * 
@@ -26,11 +30,12 @@ public class AuthenticationSuccessHandler implements org.springframework.securit
 	/*-------------------------------------------------------------------
 	 * 		 					 ATTRIBUTES
 	 *-------------------------------------------------------------------*/
+	//Repositories
 	/**
 	 * 
 	 */
 	@Autowired
-	private AccountService accountService;
+	private IUserRepository userRepository;
 
 	/*-------------------------------------------------------------------
 	 * 		 					BEHAVIORS
@@ -44,7 +49,13 @@ public class AuthenticationSuccessHandler implements org.springframework.securit
 	{
 		try
 		{
-			this.accountService.updateLastUserLogin( ContextHolder.getAuthenticatedUser() );
+			final User user = this.userRepository.findOne( ContextHolder.getAuthenticatedUser().getId() );
+			user.setLastLogin( Calendar.getInstance() );
+			this.userRepository.save( user );
+			
+			//add the user in the response
+			user.setPassword( null );
+			response.getWriter().write( new ObjectMapper().writeValueAsString(user) );
 		}
 		catch ( Exception e )
 		{

@@ -20,12 +20,18 @@ import br.com.eits.common.application.i18n.ResourceBundleMessageSource;
 @RestController
 public class DefaultResource
 {
+	/*-------------------------------------------------------------------
+	 * 		 					ATTRIBUTES
+	 *-------------------------------------------------------------------*/
 	/**
 	 *
 	 */
 	@Autowired
 	private ResourceBundleMessageSource messageSource;
-	
+
+	/*-------------------------------------------------------------------
+	 * 		 					RESOURCES
+	 *-------------------------------------------------------------------*/
 	/**
 	 *
 	 * @param lang

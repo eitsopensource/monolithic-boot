@@ -74,4 +74,4 @@ CREATE TABLE "public"."user"
 -----------------------
 INSERT INTO "public"."user"(
             id, created, updated, email, enabled, name, password, role)
-    VALUES (1, NOW(), null, 'admin@admin.com', TRUE, 'Administrador de Sistemas', 'd1bd2f08fead38a982aed9d4ca060152400b1b8f', 0);
+    VALUES (1, NOW(), null, 'admin@admin.com', TRUE, 'Administrador de Sistemas', '$2a$10$bAdAVLvM.k3DqPaPYi0gnO1OffPSHLref8MElAk.u.fFQ17v9YKC2', 0);
