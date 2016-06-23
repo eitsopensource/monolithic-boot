@@ -30,20 +30,20 @@
         <sonar.tests>src/test</sonar.tests>
 
 		<!-- Others -->
-		<eits-java-common.version>1.0.9-RELEASE</eits-java-common.version>
+		<eits-java-common.version>1.0.10-RELEASE</eits-java-common.version>
 		<dwr.version>3.0.1-RELEASE</dwr.version>
 		<apache.common.io.version>2.1</apache.common.io.version>
 		<apache.common.fileupload.version>1.3.1</apache.common.fileupload.version>
 		
 		<!-- Webjars -->
-		<webjars-locator.version>0.30</webjars-locator.version>
-		<eits-ng.version>1.2.2-RELEASE</eits-ng.version>
+		<webjars-locator.version>0.32</webjars-locator.version>
+		<eits-ng.version>1.2.3-RELEASE</eits-ng.version>
 		<eits-md.version>1.3.0-SNAPSHOT</eits-md.version>
-		<jquery.version>2.2.3</jquery.version>
-		<angularjs.version>1.5.3</angularjs.version>
-		<angular-material.version>1.0.7</angular-material.version>
-		<angular-material-data-table.version>0.10.7</angular-material-data-table.version>
-		<uirouter.version>0.2.18</uirouter.version>
+		<jquery.version>2.2.4</jquery.version>
+		<angularjs.version>1.5.7</angularjs.version>
+		<angular-material.version>1.1.0-rc.5</angular-material.version>
+		<angular-material-data-table.version>0.10.9</angular-material-data-table.version>
+		<uirouter.version>0.3.1</uirouter.version>
 		<iconic-font.version>2.2.0</iconic-font.version>
 	</properties>
 	
