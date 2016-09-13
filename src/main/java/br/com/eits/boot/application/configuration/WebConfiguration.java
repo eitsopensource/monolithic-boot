@@ -10,7 +10,7 @@ import org.directwebremoting.spring.DwrAnnotationPostProcessor;
 import org.directwebremoting.spring.DwrClassPathBeanDefinitionScanner;
 import org.directwebremoting.spring.DwrSpringServlet;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
