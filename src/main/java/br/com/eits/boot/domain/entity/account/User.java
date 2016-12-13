@@ -65,7 +65,7 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	 */
 	@NotNull
 	@Column(nullable = false)
-	private Boolean enabled;
+	private Boolean disabled;
 	/**
 	 * 
 	 */
@@ -114,12 +114,12 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	 * @param role
 	 * @param password
 	 */
-	public User( Long id, String name, String email, Boolean enabled, UserRole role, String password )
+	public User( Long id, String name, String email, Boolean disabled, UserRole role, String password )
 	{
 		super( id );
 		this.email = email;
 		this.name = name;
-		this.enabled = enabled;
+		this.disabled = disabled;
 		this.password = password;
 		this.role = role;
 	}
@@ -183,7 +183,7 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	@Transient
 	public boolean isEnabled()
 	{
-		return this.enabled;
+		return !this.disabled;
 	}
 
 	/*
@@ -219,7 +219,7 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ( ( email == null ) ? 0 : email.hashCode() );
-		result = prime * result + ( ( enabled == null ) ? 0 : enabled.hashCode() );
+		result = prime * result + ( ( disabled == null ) ? 0 : disabled.hashCode() );
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
 		result = prime * result + ( ( password == null ) ? 0 : password.hashCode() );
 		result = prime * result + ( ( role == null ) ? 0 : role.hashCode() );
@@ -241,11 +241,11 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 			if ( other.email != null ) return false;
 		}
 		else if ( !email.equals( other.email ) ) return false;
-		if ( enabled == null )
+		if ( disabled == null )
 		{
-			if ( other.enabled != null ) return false;
+			if ( other.disabled != null ) return false;
 		}
-		else if ( !enabled.equals( other.enabled ) ) return false;
+		else if ( !disabled.equals( other.disabled ) ) return false;
 		if ( name == null )
 		{
 			if ( other.name != null ) return false;
@@ -300,18 +300,18 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	/**
 	 * @return the enabled
 	 */
-	public Boolean getEnabled()
+	public Boolean getDisabled()
 	{
-		return enabled;
+		return disabled;
 	}
 
 	/**
 	 * @param enabled
 	 *            the enabled to set
 	 */
-	public void setEnabled( Boolean enabled )
+	public void setDisabled( Boolean enabled )
 	{
-		this.enabled = enabled;
+		this.disabled = enabled;
 	}
 
 	/**

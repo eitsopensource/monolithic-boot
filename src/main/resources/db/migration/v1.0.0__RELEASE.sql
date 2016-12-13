@@ -35,7 +35,7 @@ CREATE TABLE auditing.user_audited
   revision bigint NOT NULL,
   revision_type smallint,
   email character varying(144),
-  enabled boolean,
+  disabled boolean,
   last_login timestamp without time zone,
   name character varying(50),
   password character varying(100),
@@ -60,7 +60,7 @@ CREATE TABLE "public"."user"
   created timestamp without time zone NOT NULL,
   updated timestamp without time zone,
   email character varying(144) NOT NULL,
-  enabled boolean NOT NULL,
+  disabled boolean NOT NULL,
   name character varying(50) NOT NULL,
   password character varying(100) NOT NULL,
   role integer NOT NULL,
@@ -73,5 +73,5 @@ CREATE TABLE "public"."user"
 -- DEFAULT DATA
 -----------------------
 INSERT INTO "public"."user"(
-            id, created, updated, email, enabled, name, password, role)
-    VALUES (1, NOW(), null, 'admin@admin.com', TRUE, 'Administrador de Sistemas', '$2a$10$bAdAVLvM.k3DqPaPYi0gnO1OffPSHLref8MElAk.u.fFQ17v9YKC2', 0);
+            id, created, updated, email, disabled, name, password, role)
+    VALUES (1, NOW(), null, 'admin@admin.com', FALSE, 'Administrador de Sistemas', '$2a$10$bAdAVLvM.k3DqPaPYi0gnO1OffPSHLref8MElAk.u.fFQ17v9YKC2', 0);

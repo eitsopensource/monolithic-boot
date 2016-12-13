@@ -53,7 +53,7 @@ public class AccountService
 	{
 		Assert.notNull( user );
 
-		user.setEnabled( true );
+		user.setDisabled( false );
 		user.setPassword( this.passwordEncoder.encode(user.getPassword()) );
 
 		return this.userRepository.save( user );
@@ -65,7 +65,7 @@ public class AccountService
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public User findUserById( Long id )
+	public User findUserById( long id )
 	{
 		final User user = this.userRepository.findOne( id );
 		Assert.notNull( user, MessageSourceHolder.getMessage("repository.notFoundById", id) );
