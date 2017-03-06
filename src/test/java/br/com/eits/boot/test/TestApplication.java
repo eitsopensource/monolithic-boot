@@ -1,12 +1,12 @@
 package br.com.eits.boot.test;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.test.context.TestConfiguration;
 
 /**
  * 
  * @author rodrigo@eits.com.br
  */
-@Configuration
+@TestConfiguration
 public class TestApplication
 {
 	/*-------------------------------------------------------------------
