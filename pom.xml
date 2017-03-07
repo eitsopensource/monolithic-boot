@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.2.RELEASE</version>
+		<version>1.5.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
 	<groupId>br.com.eits</groupId>
-	<artifactId>spring-boot</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<artifactId>boot</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
@@ -28,148 +28,28 @@
         <sonar.jacoco.itReportPath>target/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.sources>src/main/java/br/com/eits/boot/domain</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
+        
+        <!-- Spring Boot Overrides -->
+		<thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
+		<thymeleaf-extras-springsecurity4.version>3.0.1.RELEASE</thymeleaf-extras-springsecurity4.version>
+		<thymeleaf-layout-dialect.version>2.1.2</thymeleaf-layout-dialect.version>
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
+		<thymeleaf-extras-java8time.version>3.0.0.RELEASE</thymeleaf-extras-java8time.version>
 
 		<!-- Others -->
-		<eits-java-common.version>1.0.12-RELEASE</eits-java-common.version>
+		<eits-java-common.version>2.0.0-RELEASE</eits-java-common.version>
 		<dwr.version>3.0.2-RELEASE</dwr.version>
 		<apache.common.io.version>2.1</apache.common.io.version>
 		<apache.common.fileupload.version>1.3.1</apache.common.fileupload.version>
 		
-		<!-- Webjars -->
-		<webjars-locator.version>0.32</webjars-locator.version>
-		<eits-ng.version>1.2.3-RELEASE</eits-ng.version>
-		<eits-md.version>1.3.0-SNAPSHOT</eits-md.version>
-		<jquery.version>2.2.4</jquery.version>
-		<angularjs.version>1.6.0</angularjs.version>
-		<angular-material.version>1.1.1</angular-material.version>
-		<angular-material-data-table.version>0.10.9</angular-material-data-table.version>
-		<uirouter.version>0.3.2</uirouter.version>
-		<iconic-font.version>2.2.0</iconic-font.version>
+		<!-- Web -->
+		<node.version>v7.5.0</node.version>
+		<npm.version>4.1.2</npm.version>
+		<typescript.path>src/main/ts</typescript.path>
 	</properties>
-	
-	<!-- Profiles -->
-	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-          		<activeByDefault>true</activeByDefault>
-        	</activation>
-			<properties>
-				<!-- Database -->
-				<mvn.jdbc.jdbcUrl>jdbc:postgresql://127.0.0.1:5432/boot</mvn.jdbc.jdbcUrl>
-				<mvn.jdbc.username>boot</mvn.jdbc.username>
-				<mvn.jdbc.password>boot</mvn.jdbc.password>
-
-				<!-- Database Test -->
-				<mvn.test.jdbc.jdbcUrl>jdbc:postgresql://127.0.0.1:5432/boot-test</mvn.test.jdbc.jdbcUrl>
-				<mvn.test.jdbc.username>boot</mvn.test.jdbc.username>
-				<mvn.test.jdbc.password>boot</mvn.test.jdbc.password>
-
-				<!-- Hibernate -->
-				<mvn.hibernate.hbm2ddl>validate</mvn.hibernate.hbm2ddl>
-				<mvn.hibernate.showSql>true</mvn.hibernate.showSql>
-				
-				<!-- JCR -->
-				<mvn.jcr.files>/tmp/boot/files</mvn.jcr.files>
-				
-				<!-- Mail -->
-				<mvn.mail.host>expressodev.prognus.com.br</mvn.mail.host>
-				<mvn.mail.port>25</mvn.mail.port>
-				<mvn.mail.username>no-reply</mvn.mail.username>
-				<mvn.mail.password>soAsx2gGX6Rbhk</mvn.mail.password>
-				<mvn.mail.from>no-reply@prognus.org</mvn.mail.from>
-				<mvn.mail.ttls>false</mvn.mail.ttls>
-				<mvn.mail.ssl>false</mvn.mail.ssl>
-				<mvn.mail.debug>true</mvn.mail.debug>
-				
-				<!-- Others -->
-				<mvn.cache.enabled>false</mvn.cache.enabled>
-				<mvn.flyway.enabled>true</mvn.flyway.enabled>
-			</properties>
-		</profile>
-		
-		<profile>
-			<id>sandbox</id>
-			<properties>
-				<!-- Database -->
-				<mvn.jdbc.jdbcUrl>jdbc:postgresql://devdb.prognus.com.br:5434/boot</mvn.jdbc.jdbcUrl>
-				<mvn.jdbc.username>boot</mvn.jdbc.username>
-				<mvn.jdbc.password>boot</mvn.jdbc.password>
-				
-				<!-- Database Test -->
-				<mvn.test.jdbc.jdbcUrl>jdbc:postgresql://devdb.prognus.com.br:5434/boot-test</mvn.test.jdbc.jdbcUrl>
-				<mvn.test.jdbc.username>boot</mvn.test.jdbc.username>
-				<mvn.test.jdbc.password>boot</mvn.test.jdbc.password>
-
-				<!-- Hibernate -->
-				<mvn.hibernate.hbm2ddl>validate</mvn.hibernate.hbm2ddl>
-				<mvn.hibernate.showSql>true</mvn.hibernate.showSql>
-				
-				<!-- JCR -->
-				<mvn.jcr.files>/tmp/boot-sandbox/files</mvn.jcr.files>
-				
-				<!-- Mail -->
-				<mvn.mail.host>expressodev.prognus.com.br</mvn.mail.host>
-				<mvn.mail.port>25</mvn.mail.port>
-				<mvn.mail.username>no-reply</mvn.mail.username>
-				<mvn.mail.password>soAsx2gGX6Rbhk</mvn.mail.password>
-				<mvn.mail.from>no-reply@prognus.org</mvn.mail.from>
-				<mvn.mail.ttls>false</mvn.mail.ttls>
-				<mvn.mail.ssl>false</mvn.mail.ssl>
-				<mvn.mail.debug>true</mvn.mail.debug>
-				
-				<!-- Others -->
-				<mvn.cache.enabled>false</mvn.cache.enabled>
-				<mvn.flyway.enabled>true</mvn.flyway.enabled>
-			</properties>
-		</profile>
-		
-		<profile>
-			<id>homologation</id>
-			<properties>
-				<!-- Database -->
-				<mvn.jdbc.jdbcUrl>jdbc:postgresql://devdb.prognus.com.br:5434/boot-homologation</mvn.jdbc.jdbcUrl>
-				<mvn.jdbc.username>boot</mvn.jdbc.username>
-				<mvn.jdbc.password>boot</mvn.jdbc.password>
-				
-				<!-- Database Test -->
-				<mvn.test.jdbc.jdbcUrl>jdbc:postgresql://devdb.prognus.com.br:5434/boot-test</mvn.test.jdbc.jdbcUrl>
-				<mvn.test.jdbc.username>boot</mvn.test.jdbc.username>
-				<mvn.test.jdbc.password>boot</mvn.test.jdbc.password>
-
-				<!-- Hibernate -->
-				<mvn.hibernate.hbm2ddl>validate</mvn.hibernate.hbm2ddl>
-				<mvn.hibernate.showSql>false</mvn.hibernate.showSql>
-				
-				<!-- JCR -->
-				<mvn.jcr.files>/tmp/boot-homologation/files</mvn.jcr.files>
-				
-				<!-- Mail -->
-				<mvn.mail.host>expressodev.prognus.com.br</mvn.mail.host>
-				<mvn.mail.port>25</mvn.mail.port>
-				<mvn.mail.username>no-reply</mvn.mail.username>
-				<mvn.mail.password>soAsx2gGX6Rbhk</mvn.mail.password>
-				<mvn.mail.from>no-reply@prognus.org</mvn.mail.from>
-				<mvn.mail.ttls>false</mvn.mail.ttls>
-				<mvn.mail.ssl>false</mvn.mail.ssl>
-				<mvn.mail.debug>true</mvn.mail.debug>
-				
-				<!-- Others -->
-				<mvn.cache.enabled>true</mvn.cache.enabled>
-				<mvn.flyway.enabled>true</mvn.flyway.enabled>
-			</properties>
-		</profile>
-	</profiles>
 	
 	<!-- Repositories -->
 	<repositories>
-		<repository>
-	        <id>spring-milestones</id>
-	        <url>http://repo.spring.io/milestone</url>
-	        <snapshots>
-	            <enabled>false</enabled>
-	        </snapshots>
-	    </repository>
 		<repository>
 			<id>eits-repository-release</id>
 			<url>http://maven.eits.com.br/content/repositories/releases</url>
@@ -182,16 +62,6 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 	
 	<!-- Build -->
 	<build>
@@ -261,7 +131,7 @@
   			<plugin>
             	<groupId>org.jacoco</groupId>
             	<artifactId>jacoco-maven-plugin</artifactId>
-            	<version>0.7.4.201502262128</version>
+            	<version>0.7.9</version>
             	<executions>
                 	<execution>
                     	<id>jacoco-prepare-agent</id>
@@ -298,6 +168,46 @@
 	                </execution>
             	</executions>
         	</plugin>
+        	<!-- Angular build -->
+        	<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<configuration>
+					<nodeVersion>${node.version}</nodeVersion>
+					<npmVersion>${npm.version}</npmVersion>
+					<workingDirectory>${typescript.path}</workingDirectory>
+					<installDirectory>.node</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm run-script mavenbuild</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run-script mavenbuild</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
         	
 		</plugins>
 		
@@ -395,12 +305,6 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
-		<!-- Thymeleaf -->
-		<dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        </dependency>
          
 		<!-- Spring Framework -->
 		<dependency>
@@ -413,10 +317,20 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Thymeleaf -->
+		<dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
+		
 		<!-- Hibernate -->
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-envers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-java8</artifactId>
 		</dependency>
 
 		<!-- DataSource -->
@@ -451,96 +365,13 @@
     		<artifactId>dwr</artifactId>
     		<version>${dwr.version}</version>
   		</dependency>
-  		  		
-  		<!-- WebJars -->
+  		
+  		<!-- Lombok -->
 		<dependency>
-    		<groupId>org.webjars</groupId>
-    		<artifactId>webjars-locator</artifactId>
-		</dependency>
-		
-		<!-- JQuery -->
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>jquery</artifactId>
-		    <version>${jquery.version}</version>
-		</dependency>
-
-  		<!-- AngularJS -->
-  		<dependency>
-	    	<groupId>org.webjars.bower</groupId>
-	    	<artifactId>angular</artifactId>
-	    	<version>${angularjs.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-messages</artifactId>
-		    <version>${angularjs.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-animate</artifactId>
-		    <version>${angularjs.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-aria</artifactId>
-		    <version>${angularjs.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-i18n</artifactId>
-		    <version>${angularjs.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-cookies</artifactId>
-		    <version>${angularjs.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-sanitize</artifactId>
-		    <version>${angularjs.version}</version>
-		</dependency>
-
-		<!-- Angular Modules -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>eits-ng</artifactId>
-			<version>${eits-ng.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jquery</artifactId>
-					<groupId>org.webjars</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-ui-router</artifactId>
-		    <version>${uirouter.version}</version>
-		</dependency>
-		
-		<!-- Angular Material -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>eits-md</artifactId>
-			<version>${eits-md.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-material</artifactId>
-		    <version>${angular-material.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>angular-material-data-table</artifactId>
-		    <version>${angular-material-data-table.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>material-design-iconic-font</artifactId>
-		    <version>${iconic-font.version}</version>
-		</dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 	
 </project>

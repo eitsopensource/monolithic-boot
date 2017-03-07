@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import br.com.eits.boot.application.security.AuthenticationFailureHandler;
@@ -18,7 +19,7 @@ import br.com.eits.boot.application.security.AuthenticationSuccessHandler;
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
 	/*-------------------------------------------------------------------
 	 * 		 					ATTRIBUTES
@@ -62,5 +63,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 					.and()
 						.logout()
 							.logoutUrl( "/logout" );
+	}
+	
+	/**
+	 * Override this method to configure {@link WebSecurity}. For example, if you wish to
+	 * ignore certain requests.
+	 */
+	@Override
+	public void configure( WebSecurity web ) throws Exception 
+	{
+		web.ignoring()
+			.antMatchers( "/**/favicon.ico", "/static/**", "/broker/**/*.js", "/bundles/**");
 	}
 }

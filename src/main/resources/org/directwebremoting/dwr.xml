@@ -148,9 +148,6 @@
     </convert>
     <convert converter="stringWrapper" match="org.directwebremoting.io.StringWrapper"/>
     
-	<!-- JCR -->		
-	<convert converter="bean" match="br.com.eits.common.infrastructure.jcr.MetaFile" javascript="MetaFile"/>
-	
 	<!-- Spring Data -->
 	<convert converter="object" match="org.springframework.data.domain.Page"/>
 	<convert converter="object" match="org.springframework.data.domain.PageRequest" javascript="PageRequest">

@@ -1,0 +1,55 @@
+#GENERAL
+spring:
+
+#DATA SOURCE
+  datasource:
+    url: jdbc:postgresql://devdb.prognus.com.br:5434/boot
+    username: boot
+    password: boot
+    hikari.maximum-pool-size: 3
+
+#JPA
+  jpa:
+    hibernate.ddl-auto: validate
+  jpa:
+    show-sql: true
+    
+#STATIC RESOURCES
+  resources.chain:
+    cache: false
+    
+#THYMELEAF
+  thymeleaf:
+    cache: false
+    
+#MAIL
+  mail:
+    host: expressodev.prognus.com.br
+    port: 25
+    username: no-reply
+    password: soAsx2gGX6Rbhk
+    from: no-reply@prognus.org
+    properties:
+      mail.smtp.starttls.enable: false
+      mail.smtp.starttls.required: false
+      mail.smtp.ssl.enable: false
+      mail.smtps.debug: true
+      mail.smtp.debug: true
+      mail.debug: true
+    
+#LOGGING
+logging.level:
+  org.hibernate: INFO
+  org.directwebremoting: INFO
+  org.springframework.web: INFO
+  org.springframework.context.support: INFO
+  org.springframework.security: INFO
+
+#FLYWAY
+flyway:
+  enabled: true
+  
+#DWR
+dwr:
+  debug: true
+  script-compressed: false

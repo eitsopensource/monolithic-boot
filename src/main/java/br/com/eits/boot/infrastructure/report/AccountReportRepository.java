@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import br.com.eits.boot.domain.repository.IAccountReportRepository;
 import br.com.eits.common.infrastructure.report.IReportManager;
@@ -42,8 +41,6 @@ public class AccountReportRepository implements IAccountReportRepository
 	@Override
 	public ByteArrayOutputStream generateByFilters( String filters, ReportFormat reportFormat )
 	{
-		Assert.notNull( reportFormat );
-		
 		final Map<String, Object> parameters = new HashMap<>(); 
         parameters.put( "filters", filters);
         

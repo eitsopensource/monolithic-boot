@@ -1,0 +1,9 @@
+#GENERAL
+spring:
+
+#DATA SOURCE
+  datasource:
+    url: jdbc:postgresql://devdb.prognus.com.br:5434/boot-test
+    username: boot
+    password: boot
+    hikari.maximum-pool-size: 3

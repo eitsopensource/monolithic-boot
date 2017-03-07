@@ -51,8 +51,6 @@ public class AccountService
 	@PreAuthorize("hasAnyAuthority('"+UserRole.ADMINISTRATOR_VALUE+"','"+UserRole.MANAGER_VALUE+"')")
 	public User insertUser( User user )
 	{
-		Assert.notNull( user );
-
 		user.setDisabled( false );
 		user.setPassword( this.passwordEncoder.encode(user.getPassword()) );
 

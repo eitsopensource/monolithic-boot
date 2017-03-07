@@ -21,7 +21,7 @@ public class NavigationController
 	@RequestMapping("/")
 	public ModelAndView home()
 	{
-		return new ModelAndView( "modules/home/views/index" );
+		return new ModelAndView( "ui/index" );
 	}
 
 	/**
