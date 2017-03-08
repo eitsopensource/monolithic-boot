@@ -1,4 +1,4 @@
-if ( dwr && dwr.engine )
+if ( typeof dwr !== 'undefined' )
 {
 	dwr.engine.setTextHtmlHandler(function() {
 		window.alert(/*[[#{sessionExpired}]]*/);

@@ -21,7 +21,7 @@ public class NavigationController
 	@RequestMapping("/")
 	public ModelAndView home()
 	{
-		return new ModelAndView( "ui/index" );
+		return new ModelAndView( "modules/home/index" );
 	}
 
 	/**
@@ -30,6 +30,6 @@ public class NavigationController
 	@RequestMapping(value = "/authentication")
 	public ModelAndView authentication()
 	{
-		return new ModelAndView( "modules/authentication/views/index" );
+		return new ModelAndView( "modules/authentication/index" );
 	}
 }

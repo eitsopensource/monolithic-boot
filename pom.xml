@@ -45,6 +45,7 @@
 		<!-- Web -->
 		<node.version>v7.5.0</node.version>
 		<npm.version>4.1.2</npm.version>
+		<node.path>${user.home}/.node</node.path>
 		<typescript.path>src/main/ts</typescript.path>
 	</properties>
 	
@@ -176,7 +177,7 @@
 					<nodeVersion>${node.version}</nodeVersion>
 					<npmVersion>${npm.version}</npmVersion>
 					<workingDirectory>${typescript.path}</workingDirectory>
-					<installDirectory>.node</installDirectory>
+					<installDirectory>${node.path}</installDirectory>
 				</configuration>
 				<executions>
 					<execution>

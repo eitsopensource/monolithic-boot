@@ -84,8 +84,3 @@ server:
   context-path:
   compression.enabled: true
   session.persistent: true
-  
-#SECURITY
-security:
-  ignored:
-  - /**

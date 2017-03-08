@@ -6,9 +6,9 @@ import { Broker } from 'eits-ng2';
  */
 @Component( {
     selector: 'app-root',
-    templateUrl: './sample.view.html'
+    templateUrl: './home-view.component.html',
 })
-export class SampleView
+export class HomeView 
 {
     /*-------------------------------------------------------------------
      *                           ATTRIBUTES

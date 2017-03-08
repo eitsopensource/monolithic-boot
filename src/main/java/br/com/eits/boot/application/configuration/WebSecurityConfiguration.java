@@ -73,6 +73,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	public void configure( WebSecurity web ) throws Exception 
 	{
 		web.ignoring()
-			.antMatchers( "/**/favicon.ico", "/static/**", "/broker/**/*.js", "/bundles/**");
+			.antMatchers( "/**/favicon.ico", "/static/**", "/modules/**", "/broker/**/*.js", "/bundles/**");
 	}
 }

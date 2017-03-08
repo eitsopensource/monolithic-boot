@@ -1,23 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
-import { SampleView } from './views/sample.view';
+import { HomeRoutingModule } from './home-routing.module';
+
+import { HomeView } from './views/home/home-view.component';
 
 /**
  * 
  */
 @NgModule( {
     declarations: [
-        SampleView
+        HomeView,
     ],
     imports: [
         BrowserModule,
         FormsModule,
+        HttpModule,
+        HomeRoutingModule
     ],
-    bootstrap: [SampleView]
+    providers: [],
+    bootstrap: [HomeView]
 })
-export class UIModule 
+export class HomeModule 
 {
     /*-------------------------------------------------------------------
      *                           ATTRIBUTES
