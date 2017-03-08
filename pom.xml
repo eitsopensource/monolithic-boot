@@ -88,6 +88,9 @@
             			<nonFilteredFileExtension>ico</nonFilteredFileExtension>
             			<nonFilteredFileExtension>pdf</nonFilteredFileExtension>
             			<nonFilteredFileExtension>jasper</nonFilteredFileExtension>
+            			<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+            			<nonFilteredFileExtension>woff</nonFilteredFileExtension>
+            			<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
           			</nonFilteredFileExtensions>
         		</configuration>
       		</plugin>

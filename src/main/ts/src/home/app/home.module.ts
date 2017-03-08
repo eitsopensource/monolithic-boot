@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { CovalentCoreModule, CovalentLayoutModule } from '@covalent/core';
 
 import { HomeRoutingModule } from './home-routing.module';
 
@@ -15,9 +15,10 @@ import { HomeView } from './views/home/home-view.component';
         HomeView,
     ],
     imports: [
+        CovalentCoreModule.forRoot(),
+        CovalentLayoutModule.forRoot(),
         BrowserModule,
         FormsModule,
-        HttpModule,
         HomeRoutingModule
     ],
     providers: [],

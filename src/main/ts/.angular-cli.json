@@ -7,7 +7,7 @@
 		{
 			"name": "authentication",
 			"root": "src/authentication",
-			"deployUrl": "modules/authentication",
+			"deployUrl": "modules/authentication/",
 			"outDir": "../resources/META-INF/resources/modules/authentication",
 			"assets": [],
 			"index": "index.html",
@@ -16,7 +16,8 @@
 			"tsconfig": "../tsconfig.app.json",
 			"prefix": "authentication",
 			"styles": [
-				"styles.css"
+				"../../node_modules/@covalent/core/common/platform.scss",
+				"../theme.scss"
 			],
 			"scripts": [],
 			"environmentSource": "../environments/environment.ts",
@@ -28,7 +29,7 @@
 		{
 			"name": "home",
 			"root": "src/home",
-			"deployUrl": "modules/home",
+			"deployUrl": "modules/home/",
 			"outDir": "../resources/META-INF/resources/modules/home",
 			"assets": [],
 			"index": "index.html",
@@ -37,7 +38,8 @@
 			"tsconfig": "../tsconfig.app.json",
 			"prefix": "home",
 			"styles": [
-				"styles.css"
+				"../../node_modules/@covalent/core/common/platform.scss",
+				"../theme.scss"
 			],
 			"scripts": [],
 			"environmentSource": "../environments/environment.ts",
