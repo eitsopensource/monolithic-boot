@@ -91,7 +91,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter
 		final BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
 		final ClassPathBeanDefinitionScanner scanner = new DwrClassPathBeanDefinitionScanner(beanDefinitionRegistry);
         scanner.addIncludeFilter(new AnnotationTypeFilter(DataTransferObject.class));
-        scanner.scan("br.com.eits.boot.domain");
+        scanner.scan("br.com.eits.boot.domain.entity.**");
         
 		return new DwrAnnotationPostProcessor();
 	}
