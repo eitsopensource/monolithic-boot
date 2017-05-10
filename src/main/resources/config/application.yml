@@ -11,7 +11,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
     hikari.maximum-pool-size: 3
-    url: jdbc:postgresql://127.0.0.1:5432/boot
+    url: jdbc:postgresql://127.0.0.1w:5432/boot
     username: boot
     password: boot
 
