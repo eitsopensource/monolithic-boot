@@ -1,5 +1,7 @@
 #GENERAL
 spring:
+  main:
+    banner-mode: off
   application.name: boot
   jmx.enabled: false
 

@@ -26,7 +26,7 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.language>java</sonar.language>
         <sonar.jacoco.itReportPath>target/jacoco-it.exec</sonar.jacoco.itReportPath>
-        <sonar.sources>src/main/java/br/com/eits/boot/domain</sonar.sources>
+        <sonar.sources>src/main/java/br/com/eits/boot</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
         
         <!-- Spring Boot Overrides -->
@@ -98,6 +98,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+        			<executable>true</executable>
+    			</configuration>
 				<dependencies>
 			        <dependency>
 			            <groupId>org.springframework</groupId>
