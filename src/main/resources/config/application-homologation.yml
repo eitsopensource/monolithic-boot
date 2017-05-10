@@ -1,5 +1,7 @@
 #GENERAL
 spring:
+  main:
+    banner-mode: console
 
 #DATA SOURCE
   datasource:
@@ -16,11 +18,11 @@ spring:
     
 #STATIC RESOURCES
   resources.chain:
-    cache: false
+    cache: true
     
 #THYMELEAF
   thymeleaf:
-    cache: false
+    cache: true
     
 #MAIL
   mail:
