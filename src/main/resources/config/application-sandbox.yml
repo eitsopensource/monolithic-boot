@@ -13,7 +13,6 @@ spring:
 #JPA
   jpa:
     hibernate.ddl-auto: validate
-  jpa:
     show-sql: true
     
 #STATIC RESOURCES
