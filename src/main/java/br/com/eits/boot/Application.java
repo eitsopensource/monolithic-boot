@@ -1,13 +1,9 @@
 package br.com.eits.boot;
 
-import java.util.ResourceBundle;
-
 import javax.validation.Validator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -46,23 +42,6 @@ public class Application extends SpringBootServletInitializer
 	/*-------------------------------------------------------------------
 	 * 		 					OVERRIDES
 	 *-------------------------------------------------------------------*/
-	/**
-	 * 
-	 * @param args
-	 */
-	@Override
-	protected SpringApplicationBuilder configure( SpringApplicationBuilder application )
-	{
-		final SpringApplicationBuilder builder = application.sources( Application.class );
-		
-		final String applicationName = ResourceBundle.getBundle( "config/application" ).getString( "spring.application.name" );
-		final String externalProperties = System.getProperty( applicationName+".properties" );//br.com.group.artifact.properties
-		if ( externalProperties != null && !externalProperties.isEmpty() )
-		{
-			builder.properties( ConfigFileApplicationListener.CONFIG_LOCATION_PROPERTY+":"+externalProperties );
-		}
-		return builder;
-	}
 	
 	/*-------------------------------------------------------------------
 	 * 		 						BEANS

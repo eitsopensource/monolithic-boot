@@ -3,29 +3,28 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-  	"start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve -a home --proxy-config proxy.conf.json",
     "mavenbuild": "node node_modules/.bin/ng build -a authentication && node node_modules/.bin/ng build -a home"
   },
   "dependencies": {
-    "@angular/common": "^2.4.0",
-    "@angular/compiler": "^2.4.0",
-    "@angular/core": "^2.4.0",
-    "@angular/forms": "^2.4.0",
-    "@angular/http": "^2.4.0",
-    "@angular/platform-browser": "^2.4.0",
-    "@angular/platform-browser-dynamic": "^2.4.0",
-    "@angular/router": "^3.4.0",
-    "@covalent/core": "^1.0.0-beta.2-1",
-    "core-js": "^2.4.1",
+    "@angular/animations": "^4.1.2",
+    "@angular/common": "^4.1.2",
+    "@angular/compiler": "^4.1.2",
+    "@angular/compiler-cli": "^4.1.2",
+    "@angular/core": "^4.1.2",
+    "@angular/forms": "^4.1.2",
+    "@angular/http": "^4.1.2",
+    "@angular/platform-browser": "^4.1.2",
+    "@angular/platform-browser-dynamic": "^4.1.2",
+    "@angular/platform-server": "^4.1.2",
+    "@angular/router": "^4.1.2",
+    "@covalent/core": "^1.0.0-beta.3-2",
     "eits-ng2": "^1.0.7",
-    "rxjs": "^5.1.0",
-    "zone.js": "^0.7.6"
+    "rxjs": "^5.4.0",
+    "typescript": "^2.3.2",
+    "zone.js": "^0.8.5"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-rc.1",
-    "@angular/compiler-cli": "^2.4.0",
-    "@types/node": "~6.0.60",
-    "ts-node": "~2.0.0",
-    "typescript": "~2.0.0"
+    "@angular/cli": "^1.0.3"
   }
 }
