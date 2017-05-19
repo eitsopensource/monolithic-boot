@@ -13,6 +13,10 @@ spring:
 #JPA
   jpa:
     hibernate.ddl-auto: validate
+<<<<<<< HEAD
+=======
+  jpa:
+>>>>>>> branch 'master' of https://github.com/eitsopensource/eits-springboot.git
     show-sql: true
     
 #STATIC RESOURCES
