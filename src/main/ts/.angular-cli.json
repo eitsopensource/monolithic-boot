@@ -3,6 +3,7 @@
 	"project": {
 		"name": "boot"
 	},
+
 	"apps": [
 		{
 			"name": "authentication",
@@ -26,6 +27,7 @@
 				"prod": "../environments/environment.prod.ts"
 			}
 		},
+
 		{
 			"name": "home",
 			"root": "src/home",
@@ -55,4 +57,5 @@
 			"spec": false
 		}
 	}
+	
 }
