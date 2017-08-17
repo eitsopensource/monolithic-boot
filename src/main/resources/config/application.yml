@@ -1,7 +1,5 @@
 #GENERAL
 spring:
-  main:
-    banner-mode: off
   application.name: boot
   jmx.enabled: false
 
@@ -11,20 +9,6 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
     hikari.maximum-pool-size: 3
-<<<<<<< HEAD
-    url: jdbc:postgresql://127.0.0.1w:5432/boot
-    username: boot
-    password: boot
-
-#JPA
-  jpa:
-    hibernate.ddl-auto: validate
-    show-sql: true
-    open-in-view: false
-    properties:
-      hibernate.dialect: br.com.eits.common.infrastructure.hibernate.dialect.PostgreSQLDialect
-      hibernate.temp.use_jdbc_metadata_defaults: false
-=======
     url: jdbc:postgresql://127.0.0.1:5432/boot
     username: boot
     password: boot
@@ -36,7 +20,7 @@ spring:
     open-in-view: false
     properties:
       hibernate.dialect: br.com.eits.common.infrastructure.hibernate.dialect.PostgreSQLDialect
->>>>>>> branch 'master' of https://github.com/eitsopensource/eits-springboot.git
+      hibernate.temp.use_jdbc_metadata_defaults: false
       hibernate.id.new_generator_mappings: true
       hibernate.cache.use_second_level_cache: true
       hibernate.default_schema: public
@@ -98,6 +82,7 @@ dwr:
 
 #WEB CONTAINER
 server:
-  context-path:
+  servlet:
+    context-path:
   compression.enabled: true
   session.persistent: true

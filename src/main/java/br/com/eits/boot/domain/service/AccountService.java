@@ -65,8 +65,9 @@ public class AccountService
 	@Transactional(readOnly=true)
 	public User findUserById( long id )
 	{
-		final User user = this.userRepository.findOne( id );
-		Assert.notNull( user, MessageSourceHolder.getMessage("repository.notFoundById", id) );
+		final User user = this.userRepository.findById( id ).get();
+		Assert.notNull( user, MessageSourceHolder.getMessage("repository.notFoundById", id) );	
+		
 		return user;
 	}
 	

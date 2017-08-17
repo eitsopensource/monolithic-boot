@@ -6,7 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
         <wb-resource deploy-path="/" source-path="/src/main/ts"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-        <property name="java-output-path" value="/eits-springboot/target/classes"/>
         <property name="context-root" value="monolithic-boot"/>
+        <property name="java-output-path" value="/monolithic-boot/target/classes"/>
     </wb-module>
 </project-modules>

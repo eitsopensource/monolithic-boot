@@ -49,7 +49,7 @@ public class AuthenticationSuccessHandler implements org.springframework.securit
 	{
 		try
 		{
-			final User user = this.userRepository.findOne( ContextHolder.getAuthenticatedUser().getId() );
+			final User user = this.userRepository.findById( ContextHolder.getAuthenticatedUser().getId() ).get();
 			user.setLastLogin( Calendar.getInstance() );
 			this.userRepository.save( user );
 			

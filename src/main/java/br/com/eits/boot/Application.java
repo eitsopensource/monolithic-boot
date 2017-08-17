@@ -4,7 +4,6 @@ import javax.validation.Validator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -20,7 +19,7 @@ import br.com.eits.common.infrastructure.report.jasper.JasperReportManager;
  */
 @EnableAsync
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer
+public class Application
 {
 	/**
 	 * 

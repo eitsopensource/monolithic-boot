@@ -20,7 +20,7 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
@@ -32,7 +32,7 @@ import br.com.eits.common.application.dwr.DwrAnnotationPostProcessor;
  *
  */
 @Configuration
-public class WebConfiguration extends WebMvcConfigurerAdapter
+public class WebConfiguration implements WebMvcConfigurer
 {
 	/*-------------------------------------------------------------------
 	 * 		 						BEANS
@@ -42,9 +42,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter
 	 * @return
 	 */
 	@Bean
-    public FilterRegistrationBean forwardedHeaderFilter() 
+    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() 
 	{
-        FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
+        final FilterRegistrationBean<ForwardedHeaderFilter> filterRegBean = new FilterRegistrationBean<>();
         filterRegBean.setFilter(new ForwardedHeaderFilter());
         filterRegBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return filterRegBean;
@@ -101,9 +101,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter
 	 * @return
 	 */
 	@Bean
-	public ServletRegistrationBean dwrSpringServletRegistration( DWRSettings dwrSettings )
+	public ServletRegistrationBean<DwrSpringServlet> dwrSpringServletRegistration( DWRSettings dwrSettings )
 	{
-		final ServletRegistrationBean registration = new ServletRegistrationBean( new DwrSpringServlet(), "/broker/*" );
+		final ServletRegistrationBean<DwrSpringServlet> registration = new ServletRegistrationBean<>( new DwrSpringServlet(), "/broker/*" );
 		registration.addInitParameter( "debug", String.valueOf(dwrSettings.isDebug()) );
 		registration.addInitParameter( "scriptCompressed", String.valueOf(dwrSettings.isScriptCompressed()) );
 		registration.setName( "dwrSpringServlet" );
