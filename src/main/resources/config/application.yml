@@ -67,7 +67,7 @@ logging.level:
   org.springframework.security: INFO
 
 #FLYWAY
-flyway:
+spring.flyway:
   enabled: true
   check-location: true
   schemas: public
