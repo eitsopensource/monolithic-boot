@@ -104,9 +104,9 @@ public class WebConfiguration implements WebMvcConfigurer
 	public ServletRegistrationBean<DwrSpringServlet> dwrSpringServletRegistration( DWRSettings dwrSettings )
 	{
 		final ServletRegistrationBean<DwrSpringServlet> registration = new ServletRegistrationBean<>( new DwrSpringServlet(), "/broker/*" );
+		registration.setName( "dwrSpringServlet" );
 		registration.addInitParameter( "debug", String.valueOf(dwrSettings.isDebug()) );
 		registration.addInitParameter( "scriptCompressed", String.valueOf(dwrSettings.isScriptCompressed()) );
-		registration.setName( "dwrSpringServlet" );
 		return registration;
 	}
 	
