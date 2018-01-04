@@ -41,6 +41,7 @@
     
     <!-- customs -->
     <converter id="bean" class="br.com.eits.common.application.dwr.converter.HibernateBeanConverter"/>
+    <converter id="optional" class="br.com.eits.common.application.dwr.converter.OptionalConverter"/>
     <converter id="localDateTime" class="br.com.eits.common.application.dwr.converter.LocalDateTimeConverter"/>
   </init>
 
@@ -169,7 +170,8 @@
 	<convert converter="exception" match="java.lang.Exception"/>
 	<convert converter="bean" match="java.lang.StackTraceElement"/>
 	
-	<!-- Java 8 Time -->
+	<!-- Java 8 -->
+	<convert converter="optional" match="java.util.Optional"/>
 	<convert converter="enum" match="java.time.temporal.ChronoUnit"/>
 	<convert converter="localDateTime" match="java.time.LocalDate"/>
 	<convert converter="localDateTime" match="java.time.LocalDateTime"/>
