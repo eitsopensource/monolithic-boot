@@ -3,7 +3,16 @@
  */
 package br.com.eits.boot.application.configuration;
 
+import java.io.IOException;
 import java.util.Locale;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.annotations.DataTransferObject;
 import org.directwebremoting.spring.DwrClassPathBeanDefinitionScanner;
@@ -15,6 +24,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.Ordered;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.web.filter.ForwardedHeaderFilter;
@@ -83,10 +93,9 @@ public class WebConfiguration implements WebMvcConfigurer
 	//---------
 	/**
 	 * Process all spring beans with @RemoteProxy
-	 * @return
 	 */
 	@Bean
-	public DwrAnnotationPostProcessor dwrAnnotationPostProcessor( ApplicationContext applicationContext )
+	public static DwrAnnotationPostProcessor dwrAnnotationPostProcessor( ApplicationContext applicationContext )
 	{
 		final BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
 		final ClassPathBeanDefinitionScanner scanner = new DwrClassPathBeanDefinitionScanner(beanDefinitionRegistry);
@@ -98,7 +107,6 @@ public class WebConfiguration implements WebMvcConfigurer
 
 	/**
 	 * 
-	 * @return
 	 */
 	@Bean
 	public ServletRegistrationBean<DwrSpringServlet> dwrSpringServletRegistration( DWRSettings dwrSettings )
@@ -108,6 +116,18 @@ public class WebConfiguration implements WebMvcConfigurer
 		registration.addInitParameter( "debug", String.valueOf(dwrSettings.isDebug()) );
 		registration.addInitParameter( "scriptCompressed", String.valueOf(dwrSettings.isScriptCompressed()) );
 		return registration;
+	}
+
+	/**
+	 *
+	 */
+	@Bean
+	public FilterRegistrationBean<DwrLocaleFilter> dwrLocaleRegistrationBean( LocaleResolver localeResolver )
+	{
+		FilterRegistrationBean<DwrLocaleFilter> filterBean = new FilterRegistrationBean<>( new DwrLocaleFilter( localeResolver ) );
+		filterBean.setOrder( Integer.MAX_VALUE );
+		filterBean.addUrlPatterns( "/broker/*" );
+		return filterBean;
 	}
 	
 	/*-------------------------------------------------------------------
@@ -120,5 +140,34 @@ public class WebConfiguration implements WebMvcConfigurer
 	public void addInterceptors( InterceptorRegistry registry )
 	{
 		registry.addInterceptor( this.localeChangeInterceptor() );
+	}
+
+	private static class DwrLocaleFilter implements Filter
+	{
+		private final LocaleResolver localeResolver;
+
+		private DwrLocaleFilter( LocaleResolver localeResolver )
+		{
+			this.localeResolver = localeResolver;
+		}
+
+		@Override
+		public void init( FilterConfig filterConfig ) throws ServletException
+		{
+
+		}
+
+		@Override
+		public void doFilter( ServletRequest request, ServletResponse response, FilterChain chain ) throws IOException, ServletException
+		{
+			LocaleContextHolder.setLocale( localeResolver.resolveLocale( (HttpServletRequest) request ) );
+			chain.doFilter( request, response );
+		}
+
+		@Override
+		public void destroy()
+		{
+
+		}
 	}
 }

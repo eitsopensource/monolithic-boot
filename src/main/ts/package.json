@@ -1,32 +1,16 @@
 {
   "name": "boot",
   "version": "0.0.0",
-  "private": true,
+  "license": "MIT",
   "scripts": {
-    "start": "ng serve -a home --proxy-config proxy.conf.json",
-    "mavenbuild": "node node_modules/.bin/ng build -a authentication && node node_modules/.bin/ng build -a home"
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "mavenbuild": "ng build --progress false"
   },
+  "private": true,
   "dependencies": {
-    "@angular/animations": "^4.3.3",
-    "@angular/common": "^4.2.3",
-    "@angular/compiler": "^4.2.3",
-    "@angular/compiler-cli": "^4.2.3",
-    "@angular/core": "^4.2.3",
-    "@angular/forms": "^4.2.3",
-    "@angular/http": "^4.2.3",
-    "@angular/platform-browser": "^4.2.3",
-    "@angular/platform-browser-dynamic": "^4.2.3",
-    "@angular/platform-server": "^4.2.3",
-    "@angular/router": "^4.2.3",
-    "@angular/material": "^2.0.0-beta.8",
-    "@angular/cdk": "^2.0.0-beta.8",
-    "@covalent/core": "^1.0.0-beta.6",
-    "eits-ng2": "^1.0.7",
-    "rxjs": "^5.4.0",
-    "typescript": "^2.3.2",
-    "zone.js": "^0.8.5"
+    "eits-ng-starter-2018-01": "^0.6.0"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.7"
+    "eits-ng-starter-2018-01-dev": "^0.6.0"
   }
 }

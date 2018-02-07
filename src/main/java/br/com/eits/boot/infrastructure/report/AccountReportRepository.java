@@ -29,8 +29,13 @@ public class AccountReportRepository implements IAccountReportRepository
 	/**
 	 * 
 	 */
+	private final IReportManager reportManager;
+
 	@Autowired
-	private IReportManager reportManager;
+	public AccountReportRepository( IReportManager reportManager )
+	{
+		this.reportManager = reportManager;
+	}
 
 	/*-------------------------------------------------------------------
      *                          REPORTS

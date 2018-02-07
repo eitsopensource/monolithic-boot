@@ -1,6 +1,7 @@
 package br.com.eits.boot.application.security;
 
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.Calendar;
 import java.util.logging.Logger;
 
@@ -15,15 +16,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.eits.boot.domain.entity.account.User;
 import br.com.eits.boot.domain.repository.account.IUserRepository;
+import org.springframework.stereotype.Component;
 
 /**
- * 
  * @author rodrigo@eits.com.br
  */
+@Component
 public class AuthenticationSuccessHandler implements org.springframework.security.web.authentication.AuthenticationSuccessHandler
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final Logger LOG = Logger.getLogger( AuthenticationSuccessHandler.class.getName() );
 	
@@ -32,15 +34,23 @@ public class AuthenticationSuccessHandler implements org.springframework.securit
 	 *-------------------------------------------------------------------*/
 	//Repositories
 	/**
-	 * 
+	 *
 	 */
+	private final IUserRepository userRepository;
+
+	private final ObjectMapper objectMapper;
+
 	@Autowired
-	private IUserRepository userRepository;
+	public AuthenticationSuccessHandler( IUserRepository userRepository, ObjectMapper objectMapper )
+	{
+		this.userRepository = userRepository;
+		this.objectMapper = objectMapper;
+	}
 
 	/*-------------------------------------------------------------------
 	 * 		 					BEHAVIORS
 	 *-------------------------------------------------------------------*/
-	
+
 	/* (non-Javadoc)
 	 * @see org.springframework.security.web.authentication.AuthenticationSuccessHandler#onAuthenticationSuccess(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.Authentication)
 	 */
@@ -49,13 +59,10 @@ public class AuthenticationSuccessHandler implements org.springframework.securit
 	{
 		try
 		{
-			final User user = this.userRepository.findById( ContextHolder.getAuthenticatedUser().getId() ).get();
-			user.setLastLogin( Calendar.getInstance() );
+			final User user = RequestContext.currentUser().map( User::getId ).flatMap( this.userRepository::findById ).get();
+			user.setLastLogin( OffsetDateTime.now() );
 			this.userRepository.save( user );
-			
-			//add the user in the response
-			user.setPassword( null );
-			response.getWriter().write( new ObjectMapper().writeValueAsString(user) );
+			this.objectMapper.writeValue( response.getWriter(), user );
 		}
 		catch ( Exception e )
 		{

@@ -1,3 +1,9 @@
+# SETTINGS
+app:
+  external-url: http://localhost:8080
+  mail-from: noreply@boot
+  password-token-expiration-hours: 2
+
 #GENERAL
 spring:
   application.name: boot
@@ -6,12 +12,10 @@ spring:
 #DATA SOURCE
   datasource:
     hikari.pool-name: ${spring.application.name}
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: org.postgresql.Driver
     hikari.maximum-pool-size: 3
-    url: jdbc:postgresql://127.0.0.1:5432/boot
-    username: boot
-    password: boot
+    url: jdbc:postgresql://127.0.0.1:5432/${spring.application.name}
+    username: ${spring.application.name}
+    password: ${spring.application.name}
 
 #JPA
   jpa:
@@ -20,9 +24,6 @@ spring:
     open-in-view: false
     properties:
       hibernate.dialect: br.com.eits.common.infrastructure.hibernate.dialect.PostgreSQLDialect
-      hibernate.temp.use_jdbc_metadata_defaults: false
-      hibernate.id.new_generator_mappings: true
-      hibernate.cache.use_second_level_cache: true
       hibernate.default_schema: public
       org.hibernate.envers.audit_table_suffix: _audited
       org.hibernate.envers.revision_field_name: revision
@@ -49,7 +50,6 @@ spring:
     port: 25
     username: no-reply
     password: soAsx2gGX6Rbhk
-    from: no-reply@prognus.org
     properties:
       mail.smtp.starttls.enable: false
       mail.smtp.starttls.required: false
@@ -57,14 +57,6 @@ spring:
       mail.smtps.debug: true
       mail.smtp.debug: true
       mail.debug: true
-      
-#LOGGING
-logging.level:
-  org.hibernate: INFO
-  org.directwebremoting: INFO
-  org.springframework.web: INFO
-  org.springframework.context.support: INFO
-  org.springframework.security: INFO
 
 #FLYWAY
 spring.flyway:
@@ -73,7 +65,8 @@ spring.flyway:
   schemas: public
   locations: classpath:db/migration
   baseline-on-migrate: true
-  sql-migration-prefix: v
+  sql-migration-prefix:
+
   
 #DWR
 dwr:
@@ -86,3 +79,9 @@ server:
     context-path:
   compression.enabled: true
   session.persistent: true
+
+
+logging:
+  level:
+    br.com.eits.common.application.dwr.DwrAnnotationPostProcessor: FATAL
+    org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl: WARN

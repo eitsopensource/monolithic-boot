@@ -24,13 +24,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	/**
 	 * 
 	 */
-	@Autowired
-	private AuthenticationFailureHandler authenticationFailureHandler;
+	private final AuthenticationFailureHandler authenticationFailureHandler;
 	/**
 	 * 
 	 */
+	private final AuthenticationSuccessHandler authenticationSuccessHandler;
+
 	@Autowired
-	private AuthenticationSuccessHandler authenticationSuccessHandler;
+	public WebSecurityConfiguration( AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler )
+	{
+		this.authenticationFailureHandler = authenticationFailureHandler;
+		this.authenticationSuccessHandler = authenticationSuccessHandler;
+	}
 
 	/*-------------------------------------------------------------------
 	 * 		 					 OVERRIDES
@@ -70,6 +75,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	public void configure( WebSecurity web ) throws Exception 
 	{
 		web.ignoring()
-			.antMatchers( "/**/favicon.ico", "/static/**", "/modules/**", "/broker/**/*.js", "/bundles/**");
+			.antMatchers( "/**/favicon.ico", "/static/**", "/modules/**", "/broker/**/*.js", "/bundles/**", "/webjars/**");
 	}
 }

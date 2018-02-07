@@ -1,31 +1,31 @@
 {
-	"/broker": {
-		"target": "http://127.0.0.1:8080/broker",
-		"changeOrigin": true,
-		"secure": false,
-		"pathRewrite": {
-			"^/broker": ""
-		},
-		"logLevel": "debug"
-	},
-	
-	"/static": {
-		"target": "http://127.0.0.1:8080/static",
-		"changeOrigin": true,
-		"secure": false,
-		"pathRewrite": {
-			"^/static": ""
-		},
-		"logLevel": "debug"
-	},
-	
-	"/authenticate": {
-		"target": "http://127.0.0.1:8080/authenticate",
-		"changeOrigin": true,
-		"secure": false,
-		"pathRewrite": {
-			"^/authenticate": ""
-		},
-		"logLevel": "debug"
-	}
+  "/broker": {
+    "target": "http://127.0.0.1:8080/broker",
+    "changeOrigin": true,
+    "secure": false,
+    "pathRewrite": {
+      "^/broker": ""
+    },
+    "logLevel": "debug"
+  },
+
+  "/static": {
+    "target": "http://127.0.0.1:8080/static",
+    "changeOrigin": true,
+    "secure": false,
+    "pathRewrite": {
+      "^/static": ""
+    },
+    "logLevel": "debug"
+  },
+
+  "/authenticate": {
+    "target": "http://127.0.0.1:8080/authenticate",
+    "changeOrigin": true,
+    "secure": false,
+    "pathRewrite": {
+      "^/authenticate": ""
+    },
+    "logLevel": "debug"
+  }
 }

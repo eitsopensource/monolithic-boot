@@ -5,14 +5,11 @@ import java.io.Serializable;
 import org.hibernate.envers.RevisionType;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 
-import br.com.eits.boot.application.security.ContextHolder;
+import br.com.eits.boot.application.security.RequestContext;
 import br.com.eits.boot.domain.entity.account.User;
 
 /**
- * @author rodrigo@eits.com.br
- * @since 06/12/2012
- * @version 1.0
- * @category Entity
+ *
  */
 public class EntityTrackingRevisionListener implements org.hibernate.envers.EntityTrackingRevisionListener
 {
@@ -29,14 +26,8 @@ public class EntityTrackingRevisionListener implements org.hibernate.envers.Enti
 	@Override
 	public void newRevision( Object revisionEntity )
 	{
-		try
-		{
-			final User user = ContextHolder.getAuthenticatedUser();
-			( ( Revision<?, ?> ) revisionEntity ).setUserId( user.getId() );
-		}
-		catch ( AuthenticationCredentialsNotFoundException e )
-		{
-		}
+		RequestContext.currentUser()
+				.ifPresent( user -> ((Revision<?, ?>) revisionEntity).setUserId( user.getId() ) );
 	}
 
 	/*

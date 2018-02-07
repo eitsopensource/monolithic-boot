@@ -13,11 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.eits.boot.domain.entity.account.User;
 
 /**
- * 
- * @author rodrigo@eits.com.br 
- * @since 22/04/2014
- * @version 1.0
- * @category Repository
+ *
  */
 public class IUserRepositoryImpl implements UserDetailsService
 {
@@ -27,9 +23,14 @@ public class IUserRepositoryImpl implements UserDetailsService
 	/**
 	 * 
 	 */
+	private final EntityManager entityManager;
+
 	@Autowired
-	private EntityManager entityManager;
-	
+	public IUserRepositoryImpl( EntityManager entityManager )
+	{
+		this.entityManager = entityManager;
+	}
+
 	/*-------------------------------------------------------------------
 	 *				 		     BEHAVIORS
 	 *-------------------------------------------------------------------*/
@@ -44,10 +45,10 @@ public class IUserRepositoryImpl implements UserDetailsService
 		try
 		{
 			final String hql = "FROM User user "
-							+ "WHERE user.email = :email";
+							+ "WHERE lower(user.email) = lower(:email)";
 			
 			final TypedQuery<User> query = this.entityManager.createQuery( hql, User.class );
-			query.setParameter("email", email);
+			query.setParameter( "email", email);
 			
 			return query.getSingleResult();
 		}

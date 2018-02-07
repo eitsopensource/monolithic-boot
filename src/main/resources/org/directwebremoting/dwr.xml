@@ -43,6 +43,7 @@
     <converter id="bean" class="br.com.eits.common.application.dwr.converter.HibernateBeanConverter"/>
     <converter id="optional" class="br.com.eits.common.application.dwr.converter.OptionalConverter"/>
     <converter id="localDateTime" class="br.com.eits.common.application.dwr.converter.LocalDateTimeConverter"/>
+    <converter id="offsetDateTime" class="br.com.eits.common.application.dwr.converter.OffsetDateTimeConverter"/>
   </init>
 
   <allow>
@@ -176,6 +177,7 @@
 	<convert converter="localDateTime" match="java.time.LocalDate"/>
 	<convert converter="localDateTime" match="java.time.LocalDateTime"/>
 	<convert converter="localDateTime" match="java.time.LocalTime"/>
+    <convert converter="offsetDateTime" match="java.time.OffsetDateTime" />
 	
 	<!-- Others -->
 	<convert converter="enum" match="com.netflix.hystrix.exception.HystrixRuntimeException$FailureType"/>

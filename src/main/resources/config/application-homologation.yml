@@ -37,20 +37,3 @@ spring:
       mail.smtps.debug: true
       mail.smtp.debug: true
       mail.debug: true
-    
-#LOGGING
-logging.level:
-  org.hibernate: INFO
-  org.directwebremoting: INFO
-  org.springframework.web: INFO
-  org.springframework.context.support: INFO
-  org.springframework.security: INFO
-
-#FLYWAY
-flyway:
-  enabled: true
-  
-#DWR
-dwr:
-  debug: false
-  script-compressed: true

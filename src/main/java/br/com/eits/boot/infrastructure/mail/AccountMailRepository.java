@@ -1,9 +1,11 @@
 package br.com.eits.boot.infrastructure.mail;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 import javax.mail.internet.MimeMessage;
 
+import br.com.eits.boot.application.configuration.settings.AppSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -20,9 +22,7 @@ import br.com.eits.boot.domain.entity.account.User;
 import br.com.eits.boot.domain.repository.IAccountMailRepository;
 
 /**
- * @author rodrigo@eits.com.br
- * @since 03/08/2012
- * @version 1.0
+ *
  */
 @Component
 public class AccountMailRepository implements IAccountMailRepository
@@ -33,18 +33,23 @@ public class AccountMailRepository implements IAccountMailRepository
 	/**
      *
      */
-	@Autowired
-	private JavaMailSender mailSender;
+	private final JavaMailSender mailSender;
 	/**
      *
      */
-	@Autowired
-	private TemplateEngine templateEngine;
+	private final TemplateEngine templateEngine;
 	/**
      *
      */
-	@Value("${spring.mail.from}")
-	private String mailFrom;
+	private final AppSettings appSettings;
+
+	@Autowired
+	public AccountMailRepository( JavaMailSender mailSender, TemplateEngine templateEngine, AppSettings appSettings )
+	{
+		this.mailSender = mailSender;
+		this.templateEngine = templateEngine;
+		this.appSettings = appSettings;
+	}
 
 	/*-------------------------------------------------------------------
 	 *                          BEHAVIORS
@@ -67,7 +72,7 @@ public class AccountMailRepository implements IAccountMailRepository
 				final MimeMessageHelper message = new MimeMessageHelper( mimeMessage, true, "UTF-8" );
 				message.setSubject( title );
 				message.setTo( user.getEmail() );
-				message.setFrom( mailFrom );
+				message.setFrom( appSettings.getMailFrom() );
 
 				final Context context = new Context();
 				context.setVariable("title", title);
@@ -83,6 +88,18 @@ public class AccountMailRepository implements IAccountMailRepository
 		};
 
 		this.mailSender.send( preparator );
-		return new AsyncResult<Void>( null );
+		return new AsyncResult<>( null );
+	}
+
+	@Override
+	public Future<Void> sendPasswordReset( User user )
+	{
+		return new AsyncResult<>( null );
+	}
+
+	@Override
+	public Future<Void> sendPasswordResetNotice( User user )
+	{
+		return new AsyncResult<>( null );
 	}
 }

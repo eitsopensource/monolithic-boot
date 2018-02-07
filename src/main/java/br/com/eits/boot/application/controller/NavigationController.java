@@ -1,12 +1,10 @@
 package br.com.eits.boot.application.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * 
- * @author rodrigo
+ *
  */
 @Controller
 public class NavigationController
@@ -14,22 +12,28 @@ public class NavigationController
 	/*-------------------------------------------------------------------
 	 * 		 					CONTROLLERS
 	 *-------------------------------------------------------------------*/
+
 	/**
-	 * 
-	 * @return
+	 *
 	 */
-	@RequestMapping("/")
-	public ModelAndView home()
+	@GetMapping("/")
+	public String home()
 	{
-		return new ModelAndView( "modules/home/index" );
+		return "modules/app/index";
 	}
 
 	/**
-	 * 
+	 *
 	 */
-	@RequestMapping(value = "/authentication")
-	public ModelAndView authentication()
+	@GetMapping("/authentication")
+	public String authentication()
 	{
-		return new ModelAndView( "modules/authentication/index" );
+		return "modules/authentication/authentication";
+	}
+
+	@GetMapping("/password-reset")
+	public String passwordReset()
+	{
+		return "modules/authentication/password-reset";
 	}
 }

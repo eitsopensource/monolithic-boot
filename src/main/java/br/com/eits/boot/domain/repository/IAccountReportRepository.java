@@ -13,7 +13,7 @@ public interface IAccountReportRepository
 	/**
 	 * 
 	 */
-	public static final String USERS_BY_FILTER_REPORT = "users-by-filter.pdf";
+	String USERS_BY_FILTER_REPORT = "users-by-filter.pdf";
 	
     /*-------------------------------------------------------------------
      *                          BEHAVIORS
@@ -23,5 +23,5 @@ public interface IAccountReportRepository
 	 * @param filters
 	 * @return
 	 */
-	public ByteArrayOutputStream generateByFilters( String filters, ReportFormat reportFormat );
+	ByteArrayOutputStream generateByFilters( String filters, ReportFormat reportFormat );
 }

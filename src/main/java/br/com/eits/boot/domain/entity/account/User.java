@@ -1,6 +1,7 @@
 package br.com.eits.boot.domain.entity.account;
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.directwebremoting.annotations.DataTransferObject;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Email;
@@ -29,17 +32,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 
- * @since 02/06/2014
- * @version 1.0
- * @category
+ *
  */
 @Data
 @Entity
 @Audited
-@Table(name = "\"user\"")
+@Table
 @EqualsAndHashCode(callSuper=true)
-@DataTransferObject(javascript = "User")
+@DataTransferObject
 public class User extends AbstractEntity implements Serializable, UserDetails
 {
 	/**
@@ -57,6 +57,7 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	@NotEmpty
 	@Column(nullable = false, length = 50)
 	private String name;
+
 	/**
 	 * 
 	 */
@@ -64,19 +65,22 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	@NotNull
 	@Column(nullable = false, length = 144, unique = true)
 	private String email;
+
 	/**
 	 * 
 	 */
 	@NotNull
 	@Column(nullable = false)
 	private Boolean disabled;
+
 	/**
 	 * 
 	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@NotBlank
-	@Length(min = 8)
 	@Column(nullable = false, length = 100)
 	private String password;
+
 	/**
 	 * 
 	 */
@@ -84,11 +88,21 @@ public class User extends AbstractEntity implements Serializable, UserDetails
 	@Column(nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	private UserRole role;
+
 	/**
 	 * 
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar lastLogin;
+	private OffsetDateTime lastLogin;
+
+	/**
+	 *
+	 */
+	private String passwordResetToken;
+
+	/**
+	 *
+	 */
+	private OffsetDateTime passwordResetTokenExpiration;
 
 	/*-------------------------------------------------------------------
 	 * 		 					CONSTRUCTORS

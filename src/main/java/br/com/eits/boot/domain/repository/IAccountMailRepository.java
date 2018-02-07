@@ -2,13 +2,9 @@ package br.com.eits.boot.domain.repository;
 import java.util.concurrent.Future;
 
 import br.com.eits.boot.domain.entity.account.User;
- 
+
 /**
- * Interface para o envio de e-mails
  *
- * @author rodrigo@eits.com.br
- * @since 02/10/2014
- * @version 1.0
  */
 public interface IAccountMailRepository
 {
@@ -18,5 +14,15 @@ public interface IAccountMailRepository
     /**
      * @param user
      */
-    public Future<Void> sendNewUserAccount( User user );
+    Future<Void> sendNewUserAccount( User user );
+
+    /**
+     *
+     */
+    Future<Void> sendPasswordReset( User user );
+
+    /**
+     *
+     */
+    Future<Void> sendPasswordResetNotice( User user );
 }
