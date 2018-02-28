@@ -87,6 +87,17 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
+		<pluginRepository>
+			<id>eits-repository-release</id>
+				<url>http://maven.eits.com.br/content/repositories/releases</url>
+			</pluginRepository>
+			<pluginRepository>
+			<id>eits-repository-snapshot</id>
+			<url>http://maven.eits.com.br/content/repositories/snapshots</url>
+			<snapshots>
+			<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
 	</pluginRepositories>
 	
 	<!-- Build -->
