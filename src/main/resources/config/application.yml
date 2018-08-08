@@ -77,8 +77,8 @@ dwr:
 server:
   servlet:
     context-path:
+    session.persistent: true
   compression.enabled: true
-  session.persistent: true
 
 
 logging:

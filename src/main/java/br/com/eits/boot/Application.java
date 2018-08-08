@@ -2,16 +2,15 @@ package br.com.eits.boot;
 
 import javax.validation.Validator;
 
+import br.com.eits.common.application.i18n.ResourceBundleMessageSource;
+import br.com.eits.common.infrastructure.report.IReportManager;
+import br.com.eits.common.infrastructure.report.jasper.JasperReportManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-
-import br.com.eits.common.application.i18n.ResourceBundleMessageSource;
-import br.com.eits.common.infrastructure.report.IReportManager;
-import br.com.eits.common.infrastructure.report.jasper.JasperReportManager;
 
 /**
  * 
@@ -52,7 +51,7 @@ public class Application
     @Bean
     public MessageSource messageSource() 
     {
-        final ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		var messageSource = new ResourceBundleMessageSource();
         messageSource.setAlwaysUseMessageFormat( true );
         messageSource.setDefaultEncoding( "UTF-8" );
         messageSource.setBasenames( "classpath:i18n/exceptions", "classpath:i18n/labels", "classpath:i18n/messages" );

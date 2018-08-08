@@ -2,11 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
-import { GeneratedModule } from '../generated/generated.module';
-import { BROKER_CONFIGURATION } from '../generated/services-wrapper';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,15 +12,9 @@ import { BROKER_CONFIGURATION } from '../generated/services-wrapper';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GeneratedModule
+    BrowserAnimationsModule
   ],
-  providers: [{
-    provide: BROKER_CONFIGURATION,
-    useValue: {
-      path: '/broker',
-      realTime: false
-    }
-  }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

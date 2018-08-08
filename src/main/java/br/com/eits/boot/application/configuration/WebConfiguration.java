@@ -1,10 +1,9 @@
 /**
- * 
+ *
  */
 package br.com.eits.boot.application.configuration;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,6 +13,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.eits.boot.application.configuration.settings.DWRSettings;
+import br.com.eits.common.application.dwr.DwrAnnotationPostProcessor;
 import org.directwebremoting.annotations.DataTransferObject;
 import org.directwebremoting.spring.DwrClassPathBeanDefinitionScanner;
 import org.directwebremoting.spring.DwrSpringServlet;
@@ -22,7 +23,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.Ordered;
@@ -34,12 +34,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import br.com.eits.boot.application.configuration.settings.DWRSettings;
-import br.com.eits.common.application.dwr.DwrAnnotationPostProcessor;
-
 /**
  * @author rodrigo
- *
  */
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer
@@ -47,74 +43,73 @@ public class WebConfiguration implements WebMvcConfigurer
 	/*-------------------------------------------------------------------
 	 * 		 						BEANS
 	 *-------------------------------------------------------------------*/
-	/**
-	 * 
-	 * @return
-	 */
-	@Bean
-    public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() 
-	{
-        final FilterRegistrationBean<ForwardedHeaderFilter> filterRegBean = new FilterRegistrationBean<>();
-        filterRegBean.setFilter(new ForwardedHeaderFilter());
-        filterRegBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return filterRegBean;
-    }
-	
-	//---------
-	// Locale
-	//---------
-	/**
-	 * 
-	 * @return
-	 */
-	@Bean
-	public LocaleResolver localeResolver()
-	{
-		final CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-		localeResolver.setDefaultLocale( new Locale( "pt", "BR" ) );
-		localeResolver.setCookieMaxAge( 604800 ); // 1 month
-		return localeResolver;
-	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor()
-	{
-		final LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName( "lang" );
-		return localeChangeInterceptor;
-	}
-	
-	//---------
-	// DWR
-	//---------
 	/**
 	 * Process all spring beans with @RemoteProxy
 	 */
 	@Bean
 	public static DwrAnnotationPostProcessor dwrAnnotationPostProcessor( ApplicationContext applicationContext )
 	{
-		final BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
-		final ClassPathBeanDefinitionScanner scanner = new DwrClassPathBeanDefinitionScanner(beanDefinitionRegistry);
-        scanner.addIncludeFilter(new AnnotationTypeFilter(DataTransferObject.class));
-        scanner.scan("br.com.eits.boot.domain.entity.**");
-        
+		var beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContext.getAutowireCapableBeanFactory();
+		var scanner = new DwrClassPathBeanDefinitionScanner( beanDefinitionRegistry );
+		scanner.addIncludeFilter( new AnnotationTypeFilter( DataTransferObject.class ) );
+		scanner.scan( "br.com.eits.boot.domain.entity.**" );
+
 		return new DwrAnnotationPostProcessor();
 	}
 
+	//---------
+	// Locale
+	//---------
+
 	/**
-	 * 
+	 * @return
+	 */
+	@Bean
+	public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter()
+	{
+		var filterRegBean = new FilterRegistrationBean<ForwardedHeaderFilter>();
+		filterRegBean.setFilter( new ForwardedHeaderFilter() );
+		filterRegBean.setOrder( Ordered.HIGHEST_PRECEDENCE );
+		return filterRegBean;
+	}
+
+	/**
+	 * @return
+	 */
+	@Bean
+	public LocaleResolver localeResolver()
+	{
+		var localeResolver = new CookieLocaleResolver();
+		localeResolver.setCookieMaxAge( 604800 ); // 1 month
+		return localeResolver;
+	}
+
+	//---------
+	// DWR
+	//---------
+
+	/**
+	 * @return
+	 */
+	@Bean
+	public LocaleChangeInterceptor localeChangeInterceptor()
+	{
+		var localeChangeInterceptor = new LocaleChangeInterceptor();
+		localeChangeInterceptor.setParamName( "lang" );
+		return localeChangeInterceptor;
+	}
+
+	/**
+	 *
 	 */
 	@Bean
 	public ServletRegistrationBean<DwrSpringServlet> dwrSpringServletRegistration( DWRSettings dwrSettings )
 	{
-		final ServletRegistrationBean<DwrSpringServlet> registration = new ServletRegistrationBean<>( new DwrSpringServlet(), "/broker/*" );
+		var registration = new ServletRegistrationBean<DwrSpringServlet>( new DwrSpringServlet(), "/broker/*" );
 		registration.setName( "dwrSpringServlet" );
-		registration.addInitParameter( "debug", String.valueOf(dwrSettings.isDebug()) );
-		registration.addInitParameter( "scriptCompressed", String.valueOf(dwrSettings.isScriptCompressed()) );
+		registration.addInitParameter( "debug", String.valueOf( dwrSettings.isDebug() ) );
+		registration.addInitParameter( "scriptCompressed", String.valueOf( dwrSettings.isScriptCompressed() ) );
 		return registration;
 	}
 
@@ -124,17 +119,18 @@ public class WebConfiguration implements WebMvcConfigurer
 	@Bean
 	public FilterRegistrationBean<DwrLocaleFilter> dwrLocaleRegistrationBean( LocaleResolver localeResolver )
 	{
-		FilterRegistrationBean<DwrLocaleFilter> filterBean = new FilterRegistrationBean<>( new DwrLocaleFilter( localeResolver ) );
+		var filterBean = new FilterRegistrationBean<DwrLocaleFilter>( new DwrLocaleFilter( localeResolver ) );
 		filterBean.setOrder( Integer.MAX_VALUE );
 		filterBean.addUrlPatterns( "/broker/*" );
 		return filterBean;
 	}
-	
+
 	/*-------------------------------------------------------------------
 	 * 		 						OVERRIDES
 	 *-------------------------------------------------------------------*/
+
 	/**
-	 * 
+	 *
 	 */
 	@Override
 	public void addInterceptors( InterceptorRegistry registry )
