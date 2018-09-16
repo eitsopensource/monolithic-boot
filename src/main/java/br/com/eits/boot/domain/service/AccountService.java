@@ -2,12 +2,16 @@ package br.com.eits.boot.domain.service;
 
 import static br.com.eits.common.application.i18n.MessageSourceHolder.translate;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import br.com.eits.boot.application.configuration.settings.AppSettings;
+import br.com.eits.boot.domain.entity.account.User;
+import br.com.eits.boot.domain.entity.account.UserRole;
 import br.com.eits.boot.domain.repository.IAccountMailRepository;
+import br.com.eits.boot.domain.repository.account.IUserRepository;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,12 +20,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
-import br.com.eits.boot.domain.entity.account.User;
-import br.com.eits.boot.domain.entity.account.UserRole;
-import br.com.eits.boot.domain.repository.account.IUserRepository;
-import br.com.eits.common.application.i18n.MessageSourceHolder;
 
 /**
  * @author rodrigo@eits.com.br
@@ -119,5 +117,15 @@ public class AccountService
 		user.setPassword( this.passwordEncoder.encode( newPassword ) );
 		user = this.userRepository.save( user );
 		this.accountMailRepository.sendPasswordResetNotice( user );
+	}
+
+	public String testTime( LocalDateTime date )
+	{
+		return "The time on the server is " + date.format( DateTimeFormatter.ISO_DATE_TIME );
+	}
+
+	public String testTimeOffset( OffsetDateTime date )
+	{
+		return "The time on the server is " + date.format( DateTimeFormatter.ISO_DATE_TIME );
 	}
 }
