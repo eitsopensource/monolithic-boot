@@ -1,5 +1,7 @@
 package br.com.eits.boot.application.aspect;
 
+import java.beans.Introspector;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.validation.ConstraintViolation;
@@ -8,6 +10,7 @@ import javax.validation.ValidationException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.hibernate.Hibernate;
 import org.hibernate.exception.ConstraintViolationException;
 import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,22 +71,25 @@ public class ExceptionHandlerAspect
 	@AfterThrowing(pointcut = "within(@org.springframework.stereotype.Service *)", throwing = "exception")
 	public void handleException( JoinPoint joinPoint, javax.validation.ConstraintViolationException exception )
 	{
-		final StringBuilder message = new StringBuilder();
+		var messages = new ArrayList<String>();
 		for ( ConstraintViolation<?> constraint : exception.getConstraintViolations() )
 		{
 			String annotationType = constraint.getConstraintDescriptor().getAnnotation().annotationType().getName();
-
-			//Verifica o tipo da exceção
-			if ( annotationType.equals( "javax.validation.constraints.NotNull" ) || annotationType.equals( "org.hibernate.validator.constraints.NotEmpty" ))
+			var messagePath = Introspector.decapitalize( Hibernate.getClass( constraint.getLeafBean() ).getSimpleName() ) + "." + constraint.getPropertyPath();
+			switch ( annotationType )
 			{
-				message.append("\nThe field " + constraint.getPropertyPath() + " must be set.");//FIXME Localize
-			} else
-			{
-				message.append("\n" + constraint.getMessage());
+				case "javax.validation.constraints.NotNull":
+				case "org.hibernate.validator.constraints.NotEmpty":
+					messages.add( messageSource.getMessage( messagePath + ".empty", null, LocaleContextHolder.getLocale() ) );
+					break;
+				case "org.hibernate.validator.constraints.Length":
+				case "javax.validation.constraints.Size":
+					messages.add( messageSource.getMessage( messagePath + ".length", new Object[]{constraint.getConstraintDescriptor().getAttributes().get( "max" )}, LocaleContextHolder.getLocale() ) );
+					break;
 			}
 		}
 
-		throw new ValidationException( message.toString() );
+		throw new ValidationException( String.join( "\n", messages ), exception );
 	}
 
 

@@ -8,9 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import br.com.eits.boot.application.configuration.settings.AppSettings;
+import br.com.eits.boot.domain.entity.account.Cep;
 import br.com.eits.boot.domain.entity.account.User;
 import br.com.eits.boot.domain.entity.account.UserRole;
 import br.com.eits.boot.domain.repository.IAccountMailRepository;
+import br.com.eits.boot.domain.repository.account.ICepRepository;
 import br.com.eits.boot.domain.repository.account.IUserRepository;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class AccountService
 	 */
 	@Autowired
 	private IUserRepository userRepository;
+
+	@Autowired
+	private ICepRepository cepRepository;
 
 	@Autowired
 	private IAccountMailRepository accountMailRepository;
@@ -127,5 +132,13 @@ public class AccountService
 	public String testTimeOffset( OffsetDateTime date )
 	{
 		return "The time on the server is " + date.format( DateTimeFormatter.ISO_DATE_TIME );
+	}
+
+	public String testCep()
+	{
+		var cep = new Cep();
+		cep.setCep( "123456789" );
+		cepRepository.save( cep );
+		return "ok";
 	}
 }
